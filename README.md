@@ -1,105 +1,91 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+## GitHub Actions x AWS CodePipeline
 
-# Create a JavaScript Action using TypeScript
+This GitHub Actions will help you trigger a pipeline in your AWS CodePipeline - assumming you already have the pipeline. This will not create the pipeline for you.
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+This is mainly copied from project [GitHub Actions x AWS CodePipeline](https://github.com/zulhfreelancer/aws-codepipeline-action) by [Zulhilmi Zainudin](https://github.com/zulhfreelancer) and I thank him for his work on it.
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+One of the issues I found with this action was that if something went wrong when triggering the pipeline it would print the error but it would mark the action as failed.
+That is what I have tried to address with my changes to his code with everything else being the same.
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+## Setup
 
-## Create an action from this template
+### AWS IAM
 
-Click the `Use this Template` and provide the new repo details for your action
+Create an IAM user with `codepipeline:StartPipelineExecution` permission. You may take and customize the IAM policy below as starter point. Note that I'm using `"*"` in the policy. For better security, you can limit the policy to only execute specific pipelines. You can read more about IAM for CodePipeline [here](https://docs.aws.amazon.com/codepipeline/latest/userguide/permissions-reference.html).
 
-## Code in Main
-
-> First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
-
-Install the dependencies  
-```bash
-$ npm install
 ```
-
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
-
-## Change action.yml
-
-The action.yml defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codepipeline:StartPipelineExecution"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
 }
-
-run()
 ```
 
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
+### GitHub Secrets
 
-## Publish to a distribution branch
+After you create the IAM user with the right permission, add two variables below in your GitHub repository secrets area:
 
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
+- `AWS_PIPELINE_ACCESS_KEY`: the Access Key ID for the user that you just created
+- `AWS_PIPELINE_SECRET_KEY`: the Secret Key for the user that you just created
 
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
+![](./docs/images/gh-secrets.png)
+
+## Usage
+
+### Basic Usage
+
+**Note**:
+
+- Please check the latest available version [here](#) and replace it with `X.X.X` in the code examples below.
+
+- Identify in which AWS region your pipeline is located. Use that region name for `aws-region` key below. AWS regions list is available [here](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints).
+
+```
+jobs:
+  deploy:
+    steps:
+      - name: Trigger AWS CodePipeline
+        uses: zulhfreelancer/aws-codepipeline-action@vX.X.X
+        with:
+          aws-region: "ap-southeast-1"
+          aws-access-key: ${{ secrets.AWS_PIPELINE_ACCESS_KEY }}
+          aws-secret-key: ${{ secrets.AWS_PIPELINE_SECRET_KEY }}
+          pipeline-name: "your-pipeline-name"
 ```
 
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
+### Advance Usage
 
-Your action is now published! :rocket: 
+Below is the example for situation where:
 
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
+- You only want to trigger the pipeline if previous job was successful
+- You only want to trigger the pipeline if the Git branch that GitHub Actions currently running is a specific branch
 
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
+```
+jobs:
+  job1:
+    ... code for job1 ...
+  deploy:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Trigger AWS CodePipeline
+        uses: zulhfreelancer/aws-codepipeline-action@vX.X.X
+        if: github.ref == 'refs/heads/your-branch-name'
+        with:
+          aws-region: "ap-southeast-1"
+          aws-access-key: ${{ secrets.AWS_PIPELINE_ACCESS_KEY }}
+          aws-secret-key: ${{ secrets.AWS_PIPELINE_SECRET_KEY }}
+          pipeline-name: "your-pipeline-name"
 ```
 
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+<!-- ## Contribute -->
