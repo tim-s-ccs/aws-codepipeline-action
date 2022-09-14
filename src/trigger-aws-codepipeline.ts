@@ -1,12 +1,12 @@
 import * as core from '@actions/core'
 import AWS from 'aws-sdk'
 
-const triggerAWSCodePipeline = (): void => {
-  const awsRegion = core.getInput('aws-region')
-  const awsAccessKey = core.getInput('aws-access-key')
-  const awssecretKey = core.getInput('aws-secret-key')
-  const pipelineName = core.getInput('pipeline-name')
-
+const triggerAWSCodePipeline = (
+  awsRegion: string,
+  awsAccessKey: string,
+  awssecretKey: string,
+  pipelineName: string
+): void => {
   AWS.config = new AWS.Config()
   AWS.config.region = awsRegion
   AWS.config.credentials = {
