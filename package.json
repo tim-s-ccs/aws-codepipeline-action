@@ -1,6 +1,6 @@
 {
   "name": "aws-codepipeline-action",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "This GitHub Actions will help you trigger a pipeline in your AWS CodePipeline - assumming you already have the pipeline. This will not create the pipeline for you.",
   "main": "lib/main.js",
@@ -25,17 +25,17 @@
   "author": "tim-s-ccs",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.6.0",
+    "@actions/core": "^1.9.1",
     "aws-sdk": "^2.705.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.5",
     "@typescript-eslint/parser": "^5.8.1",
-    "@vercel/ncc": "^0.31.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-github": "^4.3.2",
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^8.23.1",
+    "eslint-plugin-github": "^4.3.7",
     "js-yaml": "^4.1.0",
-    "prettier": "2.5.1",
-    "typescript": "^4.4.4"
+    "prettier": "2.7.1",
+    "typescript": "^4.8.3"
   }
 }
