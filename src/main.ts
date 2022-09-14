@@ -1,16 +1,14 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {triggerAWSCodePipeline} from './trigger-aws-codepipeline'
 
-async function run(): Promise<void> {
+const run = async (): Promise<void> => {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const awsRegion = core.getInput('aws-region')
+    const awsAccessKey = core.getInput('aws-access-key')
+    const awssecretKey = core.getInput('aws-secret-key')
+    const pipelineName = core.getInput('pipeline-name')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    triggerAWSCodePipeline(awsRegion, awsAccessKey, awssecretKey, pipelineName)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

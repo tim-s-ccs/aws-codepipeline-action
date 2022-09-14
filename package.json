@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "aws-codepipeline-action",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "This GitHub Actions will help you trigger a pipeline in your AWS CodePipeline - assumming you already have the pipeline. This will not create the pipeline for you.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -15,17 +15,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/tim-s-ccs/aws-codepipeline-action"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "",
+  "author": "tim-s-ccs",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.6.0"
+    "@actions/core": "^1.6.0",
+    "aws-sdk": "^2.705.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.5",
@@ -33,11 +34,8 @@
     "@vercel/ncc": "^0.31.1",
     "eslint": "^7.32.0",
     "eslint-plugin-github": "^4.3.2",
-    "eslint-plugin-jest": "^25.3.2",
-    "jest": "^27.2.5",
     "js-yaml": "^4.1.0",
     "prettier": "2.5.1",
-    "ts-jest": "^27.1.2",
     "typescript": "^4.4.4"
   }
 }
