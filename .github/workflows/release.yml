@@ -1,0 +1,34 @@
+name: Create a GitHub release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check to see if the package version has changed
+        id: check-package-version
+        uses: EndBug/version-check@v2.1.1
+        
+      - name: Echo change
+        run:  'echo "Changed: ${{ steps.check-package-version.outputs.changed }}"'
+
+      - name: End if no changes where found
+        run: 'echo "CANCELLING WORKFLOW: No package version changes found"'
+        if: steps.check-package-version.outputs.changed == 'false'
+
+      - name: Log when changed
+        run: 'echo "New version: ${{ steps.check-package-version.outputs.version }} (${{ steps.check-package-version.outputs.type }})"'
+        if: steps.check-package-version.outputs.changed == 'true'
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.check-package-version.outputs.version }}
+          generate_release_notes: true
+        if: steps.check-package-version.outputs.changed == 'true'
