@@ -32,6 +32,22 @@ $ npm test
 
 ...
 ``` -->
+### Create a release
+
+Checkout a new branch with name `release-<major>.<minor>.<patch>`.
+
+Update the `package.json` with the new version number.
+
+Run:
+```bash
+$ npm install
+```
+
+Commit the changes with the message `Release <major>.<minor>.<patch>`
+
+Push to GitHub and open a Pull Request.
+
+Once the PR has been merged, GitHub actions will create a new release tag.
 
 ## Setup
 
