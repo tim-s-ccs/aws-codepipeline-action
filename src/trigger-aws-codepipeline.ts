@@ -1,34 +1,37 @@
 import * as core from '@actions/core'
-import AWS from 'aws-sdk'
+import {
+  CodePipelineClient,
+  StartPipelineExecutionCommand
+} from '@aws-sdk/client-codepipeline'
 
-const triggerAWSCodePipeline = (
+const triggerAWSCodePipeline = async (
   awsRegion: string,
   awsAccessKey: string,
-  awssecretKey: string,
+  awsSecretKey: string,
   pipelineName: string
-): void => {
-  AWS.config = new AWS.Config()
-  AWS.config.region = awsRegion
-  AWS.config.credentials = {
-    accessKeyId: awsAccessKey,
-    secretAccessKey: awssecretKey
-  }
-
-  const codepipeline = new AWS.CodePipeline()
-  const pipeline = {
-    name: pipelineName
-  }
-
-  codepipeline.startPipelineExecution(pipeline, (error, okData) => {
-    if (error) {
-      core.setFailed(error)
-    } else {
-      core.info('AWS CodePipeline triggered successfully')
-      core.info('The following execution ID was returned')
-      core.info(okData.pipelineExecutionId || '')
-      core.setOutput('pipelineExecutionId', okData.pipelineExecutionId || '')
+): Promise<void> => {
+  const client = new CodePipelineClient({
+    region: awsRegion,
+    credentials: {
+      accessKeyId: awsAccessKey,
+      secretAccessKey: awsSecretKey
     }
   })
+
+  const command = new StartPipelineExecutionCommand({
+    name: pipelineName
+  })
+
+  try {
+    const response = await client.send(command)
+
+    core.info('AWS CodePipeline triggered successfully')
+    core.info('The following execution ID was returned')
+    core.info(response.pipelineExecutionId || '')
+    core.setOutput('pipelineExecutionId', response.pipelineExecutionId || '')
+  } catch (error) {
+    core.setFailed(error as Error)
+  }
 }
 
 export {triggerAWSCodePipeline}
