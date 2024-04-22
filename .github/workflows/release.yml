@@ -13,7 +13,7 @@ jobs:
 
       - name: Check to see if the package version has changed
         id: check-package-version
-        uses: EndBug/version-check@v2.1.3
+        uses: EndBug/version-check@v2.1.4
         
       - name: Echo change
         run:  'echo "Changed: ${{ steps.check-package-version.outputs.changed }}"'
