@@ -2038,6 +2038,7 @@ __export(src_exports, {
   EnableStageTransitionCommand: () => EnableStageTransitionCommand,
   EncryptionKeyType: () => EncryptionKeyType,
   ExecutionMode: () => ExecutionMode,
+  ExecutionType: () => ExecutionType,
   ExecutorType: () => ExecutorType,
   FailureType: () => FailureType,
   GetActionTypeCommand: () => GetActionTypeCommand,
@@ -2079,6 +2080,7 @@ __export(src_exports, {
   OutputVariablesSizeExceededException: () => OutputVariablesSizeExceededException,
   PipelineExecutionNotFoundException: () => PipelineExecutionNotFoundException,
   PipelineExecutionNotStoppableException: () => PipelineExecutionNotStoppableException,
+  PipelineExecutionOutdatedException: () => PipelineExecutionOutdatedException,
   PipelineExecutionStatus: () => PipelineExecutionStatus,
   PipelineNameInUseException: () => PipelineNameInUseException,
   PipelineNotFoundException: () => PipelineNotFoundException,
@@ -2098,7 +2100,9 @@ __export(src_exports, {
   RegisterWebhookWithThirdPartyCommand: () => RegisterWebhookWithThirdPartyCommand,
   RequestFailedException: () => RequestFailedException,
   ResourceNotFoundException: () => ResourceNotFoundException,
+  Result: () => Result,
   RetryStageExecutionCommand: () => RetryStageExecutionCommand,
+  RollbackStageCommand: () => RollbackStageCommand,
   SourceRevisionType: () => SourceRevisionType,
   StageExecutionStatus: () => StageExecutionStatus,
   StageNotFoundException: () => StageNotFoundException,
@@ -2113,6 +2117,7 @@ __export(src_exports, {
   ThirdPartyJobDetailsFilterSensitiveLog: () => ThirdPartyJobDetailsFilterSensitiveLog,
   TooManyTagsException: () => TooManyTagsException,
   TriggerType: () => TriggerType,
+  UnableToRollbackStageException: () => UnableToRollbackStageException,
   UntagResourceCommand: () => UntagResourceCommand,
   UpdateActionTypeCommand: () => UpdateActionTypeCommand,
   UpdatePipelineCommand: () => UpdatePipelineCommand,
@@ -2556,6 +2561,9 @@ var PipelineType = {
   V1: "V1",
   V2: "V2"
 };
+var Result = {
+  ROLLBACK: "ROLLBACK"
+};
 var GitPullRequestEventType = {
   CLOSED: "CLOSED",
   OPEN: "OPEN",
@@ -2721,6 +2729,10 @@ var _PipelineVersionNotFoundException = class _PipelineVersionNotFoundException 
 };
 __name(_PipelineVersionNotFoundException, "PipelineVersionNotFoundException");
 var PipelineVersionNotFoundException = _PipelineVersionNotFoundException;
+var ExecutionType = {
+  ROLLBACK: "ROLLBACK",
+  STANDARD: "STANDARD"
+};
 var PipelineExecutionStatus = {
   Cancelled: "Cancelled",
   Failed: "Failed",
@@ -2731,8 +2743,10 @@ var PipelineExecutionStatus = {
   Superseded: "Superseded"
 };
 var TriggerType = {
+  AutomatedRollback: "AutomatedRollback",
   CloudWatchEvent: "CloudWatchEvent",
   CreatePipeline: "CreatePipeline",
+  ManualRollback: "ManualRollback",
   PollForSourceChanges: "PollForSourceChanges",
   PutActionRevision: "PutActionRevision",
   StartPipelineExecution: "StartPipelineExecution",
@@ -2985,6 +2999,40 @@ var _StageNotRetryableException = class _StageNotRetryableException extends Code
 };
 __name(_StageNotRetryableException, "StageNotRetryableException");
 var StageNotRetryableException = _StageNotRetryableException;
+var _PipelineExecutionOutdatedException = class _PipelineExecutionOutdatedException extends CodePipelineServiceException {
+  /**
+   * @internal
+   */
+  constructor(opts) {
+    super({
+      name: "PipelineExecutionOutdatedException",
+      $fault: "client",
+      ...opts
+    });
+    this.name = "PipelineExecutionOutdatedException";
+    this.$fault = "client";
+    Object.setPrototypeOf(this, _PipelineExecutionOutdatedException.prototype);
+  }
+};
+__name(_PipelineExecutionOutdatedException, "PipelineExecutionOutdatedException");
+var PipelineExecutionOutdatedException = _PipelineExecutionOutdatedException;
+var _UnableToRollbackStageException = class _UnableToRollbackStageException extends CodePipelineServiceException {
+  /**
+   * @internal
+   */
+  constructor(opts) {
+    super({
+      name: "UnableToRollbackStageException",
+      $fault: "client",
+      ...opts
+    });
+    this.name = "UnableToRollbackStageException";
+    this.$fault = "client";
+    Object.setPrototypeOf(this, _UnableToRollbackStageException.prototype);
+  }
+};
+__name(_UnableToRollbackStageException, "UnableToRollbackStageException");
+var UnableToRollbackStageException = _UnableToRollbackStageException;
 var _ConcurrentPipelineExecutionsLimitExceededException = class _ConcurrentPipelineExecutionsLimitExceededException extends CodePipelineServiceException {
   /**
    * @internal
@@ -3296,6 +3344,12 @@ var se_RetryStageExecutionCommand = /* @__PURE__ */ __name(async (input, context
   body = JSON.stringify((0, import_smithy_client._json)(input));
   return buildHttpRpcRequest(context, headers, "/", void 0, body);
 }, "se_RetryStageExecutionCommand");
+var se_RollbackStageCommand = /* @__PURE__ */ __name(async (input, context) => {
+  const headers = sharedHeaders("RollbackStage");
+  let body;
+  body = JSON.stringify((0, import_smithy_client._json)(input));
+  return buildHttpRpcRequest(context, headers, "/", void 0, body);
+}, "se_RollbackStageCommand");
 var se_StartPipelineExecutionCommand = /* @__PURE__ */ __name(async (input, context) => {
   const headers = sharedHeaders("StartPipelineExecution");
   let body;
@@ -3737,6 +3791,19 @@ var de_RetryStageExecutionCommand = /* @__PURE__ */ __name(async (output, contex
   };
   return response;
 }, "de_RetryStageExecutionCommand");
+var de_RollbackStageCommand = /* @__PURE__ */ __name(async (output, context) => {
+  if (output.statusCode >= 300) {
+    return de_CommandError(output, context);
+  }
+  const data = await (0, import_core2.parseJsonBody)(output.body, context);
+  let contents = {};
+  contents = (0, import_smithy_client._json)(data);
+  const response = {
+    $metadata: deserializeMetadata(output),
+    ...contents
+  };
+  return response;
+}, "de_RollbackStageCommand");
 var de_StartPipelineExecutionCommand = /* @__PURE__ */ __name(async (output, context) => {
   if (output.statusCode >= 300) {
     return de_CommandError(output, context);
@@ -3918,6 +3985,12 @@ var de_CommandError = /* @__PURE__ */ __name(async (output, context) => {
     case "StageNotRetryableException":
     case "com.amazonaws.codepipeline#StageNotRetryableException":
       throw await de_StageNotRetryableExceptionRes(parsedOutput, context);
+    case "PipelineExecutionOutdatedException":
+    case "com.amazonaws.codepipeline#PipelineExecutionOutdatedException":
+      throw await de_PipelineExecutionOutdatedExceptionRes(parsedOutput, context);
+    case "UnableToRollbackStageException":
+    case "com.amazonaws.codepipeline#UnableToRollbackStageException":
+      throw await de_UnableToRollbackStageExceptionRes(parsedOutput, context);
     case "ConcurrentPipelineExecutionsLimitExceededException":
     case "com.amazonaws.codepipeline#ConcurrentPipelineExecutionsLimitExceededException":
       throw await de_ConcurrentPipelineExecutionsLimitExceededExceptionRes(parsedOutput, context);
@@ -4182,6 +4255,15 @@ var de_PipelineExecutionNotStoppableExceptionRes = /* @__PURE__ */ __name(async 
   });
   return (0, import_smithy_client.decorateServiceException)(exception, body);
 }, "de_PipelineExecutionNotStoppableExceptionRes");
+var de_PipelineExecutionOutdatedExceptionRes = /* @__PURE__ */ __name(async (parsedOutput, context) => {
+  const body = parsedOutput.body;
+  const deserialized = (0, import_smithy_client._json)(body);
+  const exception = new PipelineExecutionOutdatedException({
+    $metadata: deserializeMetadata(parsedOutput),
+    ...deserialized
+  });
+  return (0, import_smithy_client.decorateServiceException)(exception, body);
+}, "de_PipelineExecutionOutdatedExceptionRes");
 var de_PipelineNameInUseExceptionRes = /* @__PURE__ */ __name(async (parsedOutput, context) => {
   const body = parsedOutput.body;
   const deserialized = (0, import_smithy_client._json)(body);
@@ -4254,6 +4336,15 @@ var de_TooManyTagsExceptionRes = /* @__PURE__ */ __name(async (parsedOutput, con
   });
   return (0, import_smithy_client.decorateServiceException)(exception, body);
 }, "de_TooManyTagsExceptionRes");
+var de_UnableToRollbackStageExceptionRes = /* @__PURE__ */ __name(async (parsedOutput, context) => {
+  const body = parsedOutput.body;
+  const deserialized = (0, import_smithy_client._json)(body);
+  const exception = new UnableToRollbackStageException({
+    $metadata: deserializeMetadata(parsedOutput),
+    ...deserialized
+  });
+  return (0, import_smithy_client.decorateServiceException)(exception, body);
+}, "de_UnableToRollbackStageExceptionRes");
 var de_ValidationExceptionRes = /* @__PURE__ */ __name(async (parsedOutput, context) => {
   const body = parsedOutput.body;
   const deserialized = (0, import_smithy_client._json)(body);
@@ -4453,9 +4544,11 @@ var de_PipelineExecution = /* @__PURE__ */ __name((output, context) => {
   return (0, import_smithy_client.take)(output, {
     artifactRevisions: (_) => de_ArtifactRevisionList(_, context),
     executionMode: import_smithy_client.expectString,
+    executionType: import_smithy_client.expectString,
     pipelineExecutionId: import_smithy_client.expectString,
     pipelineName: import_smithy_client.expectString,
     pipelineVersion: import_smithy_client.expectInt32,
+    rollbackMetadata: import_smithy_client._json,
     status: import_smithy_client.expectString,
     statusSummary: import_smithy_client.expectString,
     trigger: import_smithy_client._json,
@@ -4465,11 +4558,14 @@ var de_PipelineExecution = /* @__PURE__ */ __name((output, context) => {
 var de_PipelineExecutionSummary = /* @__PURE__ */ __name((output, context) => {
   return (0, import_smithy_client.take)(output, {
     executionMode: import_smithy_client.expectString,
+    executionType: import_smithy_client.expectString,
     lastUpdateTime: (_) => (0, import_smithy_client.expectNonNull)((0, import_smithy_client.parseEpochTimestamp)((0, import_smithy_client.expectNumber)(_))),
     pipelineExecutionId: import_smithy_client.expectString,
+    rollbackMetadata: import_smithy_client._json,
     sourceRevisions: import_smithy_client._json,
     startTime: (_) => (0, import_smithy_client.expectNonNull)((0, import_smithy_client.parseEpochTimestamp)((0, import_smithy_client.expectNumber)(_))),
     status: import_smithy_client.expectString,
+    statusSummary: import_smithy_client.expectString,
     stopTrigger: import_smithy_client._json,
     trigger: import_smithy_client._json
   });
@@ -5134,6 +5230,23 @@ var _RetryStageExecutionCommand = class _RetryStageExecutionCommand extends impo
 __name(_RetryStageExecutionCommand, "RetryStageExecutionCommand");
 var RetryStageExecutionCommand = _RetryStageExecutionCommand;
 
+// src/commands/RollbackStageCommand.ts
+
+
+
+
+var _RollbackStageCommand = class _RollbackStageCommand extends import_smithy_client.Command.classBuilder().ep({
+  ...commonParams
+}).m(function(Command, cs, config, o) {
+  return [
+    (0, import_middleware_serde.getSerdePlugin)(config, this.serialize, this.deserialize),
+    (0, import_middleware_endpoint.getEndpointPlugin)(config, Command.getEndpointParameterInstructions())
+  ];
+}).s("CodePipeline_20150709", "RollbackStage", {}).n("CodePipelineClient", "RollbackStageCommand").f(void 0, void 0).ser(se_RollbackStageCommand).de(de_RollbackStageCommand).build() {
+};
+__name(_RollbackStageCommand, "RollbackStageCommand");
+var RollbackStageCommand = _RollbackStageCommand;
+
 // src/commands/StartPipelineExecutionCommand.ts
 
 
@@ -5271,6 +5384,7 @@ var commands = {
   PutWebhookCommand,
   RegisterWebhookWithThirdPartyCommand,
   RetryStageExecutionCommand,
+  RollbackStageCommand,
   StartPipelineExecutionCommand,
   StopPipelineExecutionCommand,
   TagResourceCommand,
@@ -11052,6 +11166,7 @@ __export(src_exports, {
 module.exports = __toCommonJS(src_exports);
 
 // src/defaultProvider.ts
+var import_credential_provider_env = __nccwpck_require__(5972);
 
 var import_shared_ini_file_loader = __nccwpck_require__(3507);
 
@@ -11082,8 +11197,7 @@ var defaultProvider = /* @__PURE__ */ __name((init = {}) => (0, import_property_
       async () => {
         var _a;
         (_a = init.logger) == null ? void 0 : _a.debug("@aws-sdk/credential-provider-node", "defaultProvider::fromEnv");
-        const { fromEnv } = await Promise.resolve().then(() => __toESM(__nccwpck_require__(5972)));
-        return fromEnv(init)();
+        return (0, import_credential_provider_env.fromEnv)(init)();
       }
     ],
     async () => {
@@ -24792,7 +24906,7 @@ module.exports = require("util");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"@aws-sdk/client-codepipeline","description":"AWS SDK for JavaScript Codepipeline Client for Node.js, Browser and React Native","version":"3.556.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-codepipeline","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo codepipeline"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"3.0.0","@aws-crypto/sha256-js":"3.0.0","@aws-sdk/client-sts":"3.556.0","@aws-sdk/core":"3.556.0","@aws-sdk/credential-provider-node":"3.556.0","@aws-sdk/middleware-host-header":"3.535.0","@aws-sdk/middleware-logger":"3.535.0","@aws-sdk/middleware-recursion-detection":"3.535.0","@aws-sdk/middleware-user-agent":"3.540.0","@aws-sdk/region-config-resolver":"3.535.0","@aws-sdk/types":"3.535.0","@aws-sdk/util-endpoints":"3.540.0","@aws-sdk/util-user-agent-browser":"3.535.0","@aws-sdk/util-user-agent-node":"3.535.0","@smithy/config-resolver":"^2.2.0","@smithy/core":"^1.4.2","@smithy/fetch-http-handler":"^2.5.0","@smithy/hash-node":"^2.2.0","@smithy/invalid-dependency":"^2.2.0","@smithy/middleware-content-length":"^2.2.0","@smithy/middleware-endpoint":"^2.5.1","@smithy/middleware-retry":"^2.3.1","@smithy/middleware-serde":"^2.3.0","@smithy/middleware-stack":"^2.2.0","@smithy/node-config-provider":"^2.3.0","@smithy/node-http-handler":"^2.5.0","@smithy/protocol-http":"^3.3.0","@smithy/smithy-client":"^2.5.1","@smithy/types":"^2.12.0","@smithy/url-parser":"^2.2.0","@smithy/util-base64":"^2.3.0","@smithy/util-body-length-browser":"^2.2.0","@smithy/util-body-length-node":"^2.3.0","@smithy/util-defaults-mode-browser":"^2.2.1","@smithy/util-defaults-mode-node":"^2.3.1","@smithy/util-endpoints":"^1.2.0","@smithy/util-middleware":"^2.2.0","@smithy/util-retry":"^2.2.0","@smithy/util-utf8":"^2.3.0","tslib":"^2.6.2","uuid":"^9.0.1"},"devDependencies":{"@smithy/service-client-documentation-generator":"^2.2.0","@tsconfig/node14":"1.0.3","@types/node":"^14.14.31","@types/uuid":"^9.0.4","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=14.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-codepipeline","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-codepipeline"}}');
+module.exports = JSON.parse('{"name":"@aws-sdk/client-codepipeline","description":"AWS SDK for JavaScript Codepipeline Client for Node.js, Browser and React Native","version":"3.564.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-codepipeline","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo codepipeline"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"3.0.0","@aws-crypto/sha256-js":"3.0.0","@aws-sdk/core":"3.556.0","@aws-sdk/credential-provider-node":"3.564.0","@aws-sdk/middleware-host-header":"3.535.0","@aws-sdk/middleware-logger":"3.535.0","@aws-sdk/middleware-recursion-detection":"3.535.0","@aws-sdk/middleware-user-agent":"3.540.0","@aws-sdk/region-config-resolver":"3.535.0","@aws-sdk/types":"3.535.0","@aws-sdk/util-endpoints":"3.540.0","@aws-sdk/util-user-agent-browser":"3.535.0","@aws-sdk/util-user-agent-node":"3.535.0","@smithy/config-resolver":"^2.2.0","@smithy/core":"^1.4.2","@smithy/fetch-http-handler":"^2.5.0","@smithy/hash-node":"^2.2.0","@smithy/invalid-dependency":"^2.2.0","@smithy/middleware-content-length":"^2.2.0","@smithy/middleware-endpoint":"^2.5.1","@smithy/middleware-retry":"^2.3.1","@smithy/middleware-serde":"^2.3.0","@smithy/middleware-stack":"^2.2.0","@smithy/node-config-provider":"^2.3.0","@smithy/node-http-handler":"^2.5.0","@smithy/protocol-http":"^3.3.0","@smithy/smithy-client":"^2.5.1","@smithy/types":"^2.12.0","@smithy/url-parser":"^2.2.0","@smithy/util-base64":"^2.3.0","@smithy/util-body-length-browser":"^2.2.0","@smithy/util-body-length-node":"^2.3.0","@smithy/util-defaults-mode-browser":"^2.2.1","@smithy/util-defaults-mode-node":"^2.3.1","@smithy/util-endpoints":"^1.2.0","@smithy/util-middleware":"^2.2.0","@smithy/util-retry":"^2.2.0","@smithy/util-utf8":"^2.3.0","tslib":"^2.6.2","uuid":"^9.0.1"},"devDependencies":{"@smithy/service-client-documentation-generator":"^2.2.0","@tsconfig/node14":"1.0.3","@types/node":"^14.14.31","@types/uuid":"^9.0.4","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=14.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-codepipeline","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-codepipeline"}}');
 
 /***/ }),
 
@@ -24800,7 +24914,7 @@ module.exports = JSON.parse('{"name":"@aws-sdk/client-codepipeline","description
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"@aws-sdk/client-sso-oidc","description":"AWS SDK for JavaScript Sso Oidc Client for Node.js, Browser and React Native","version":"3.556.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sso-oidc","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sso-oidc"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"3.0.0","@aws-crypto/sha256-js":"3.0.0","@aws-sdk/client-sts":"3.556.0","@aws-sdk/core":"3.556.0","@aws-sdk/middleware-host-header":"3.535.0","@aws-sdk/middleware-logger":"3.535.0","@aws-sdk/middleware-recursion-detection":"3.535.0","@aws-sdk/middleware-user-agent":"3.540.0","@aws-sdk/region-config-resolver":"3.535.0","@aws-sdk/types":"3.535.0","@aws-sdk/util-endpoints":"3.540.0","@aws-sdk/util-user-agent-browser":"3.535.0","@aws-sdk/util-user-agent-node":"3.535.0","@smithy/config-resolver":"^2.2.0","@smithy/core":"^1.4.2","@smithy/fetch-http-handler":"^2.5.0","@smithy/hash-node":"^2.2.0","@smithy/invalid-dependency":"^2.2.0","@smithy/middleware-content-length":"^2.2.0","@smithy/middleware-endpoint":"^2.5.1","@smithy/middleware-retry":"^2.3.1","@smithy/middleware-serde":"^2.3.0","@smithy/middleware-stack":"^2.2.0","@smithy/node-config-provider":"^2.3.0","@smithy/node-http-handler":"^2.5.0","@smithy/protocol-http":"^3.3.0","@smithy/smithy-client":"^2.5.1","@smithy/types":"^2.12.0","@smithy/url-parser":"^2.2.0","@smithy/util-base64":"^2.3.0","@smithy/util-body-length-browser":"^2.2.0","@smithy/util-body-length-node":"^2.3.0","@smithy/util-defaults-mode-browser":"^2.2.1","@smithy/util-defaults-mode-node":"^2.3.1","@smithy/util-endpoints":"^1.2.0","@smithy/util-middleware":"^2.2.0","@smithy/util-retry":"^2.2.0","@smithy/util-utf8":"^2.3.0","tslib":"^2.6.2"},"devDependencies":{"@smithy/service-client-documentation-generator":"^2.2.0","@tsconfig/node14":"1.0.3","@types/node":"^14.14.31","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=14.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","peerDependencies":{"@aws-sdk/credential-provider-node":"^3.556.0"},"browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso-oidc","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sso-oidc"}}');
+module.exports = JSON.parse('{"name":"@aws-sdk/client-sso-oidc","description":"AWS SDK for JavaScript Sso Oidc Client for Node.js, Browser and React Native","version":"3.564.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sso-oidc","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sso-oidc"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"3.0.0","@aws-crypto/sha256-js":"3.0.0","@aws-sdk/core":"3.556.0","@aws-sdk/middleware-host-header":"3.535.0","@aws-sdk/middleware-logger":"3.535.0","@aws-sdk/middleware-recursion-detection":"3.535.0","@aws-sdk/middleware-user-agent":"3.540.0","@aws-sdk/region-config-resolver":"3.535.0","@aws-sdk/types":"3.535.0","@aws-sdk/util-endpoints":"3.540.0","@aws-sdk/util-user-agent-browser":"3.535.0","@aws-sdk/util-user-agent-node":"3.535.0","@smithy/config-resolver":"^2.2.0","@smithy/core":"^1.4.2","@smithy/fetch-http-handler":"^2.5.0","@smithy/hash-node":"^2.2.0","@smithy/invalid-dependency":"^2.2.0","@smithy/middleware-content-length":"^2.2.0","@smithy/middleware-endpoint":"^2.5.1","@smithy/middleware-retry":"^2.3.1","@smithy/middleware-serde":"^2.3.0","@smithy/middleware-stack":"^2.2.0","@smithy/node-config-provider":"^2.3.0","@smithy/node-http-handler":"^2.5.0","@smithy/protocol-http":"^3.3.0","@smithy/smithy-client":"^2.5.1","@smithy/types":"^2.12.0","@smithy/url-parser":"^2.2.0","@smithy/util-base64":"^2.3.0","@smithy/util-body-length-browser":"^2.2.0","@smithy/util-body-length-node":"^2.3.0","@smithy/util-defaults-mode-browser":"^2.2.1","@smithy/util-defaults-mode-node":"^2.3.1","@smithy/util-endpoints":"^1.2.0","@smithy/util-middleware":"^2.2.0","@smithy/util-retry":"^2.2.0","@smithy/util-utf8":"^2.3.0","tslib":"^2.6.2"},"devDependencies":{"@smithy/service-client-documentation-generator":"^2.2.0","@tsconfig/node14":"1.0.3","@types/node":"^14.14.31","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=14.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","peerDependencies":{"@aws-sdk/credential-provider-node":"^3.564.0"},"browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso-oidc","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sso-oidc"}}');
 
 /***/ }),
 
