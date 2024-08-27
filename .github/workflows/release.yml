@@ -11,24 +11,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check to see if the package version has changed
-        id: check-package-version
-        uses: EndBug/version-check@v2.1.4
-        
-      - name: Echo change
-        run:  'echo "Changed: ${{ steps.check-package-version.outputs.changed }}"'
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: "https://registry.npmjs.org"
 
-      - name: End if no changes where found
-        run: 'echo "CANCELLING WORKFLOW: No package version changes found"'
-        if: steps.check-package-version.outputs.changed == 'false'
+      - name: Get package version
+        id: package_version
+        run: echo "npm=$(npm run version --silent)" >> $GITHUB_OUTPUT
 
-      - name: Log when changed
-        run: 'echo "New version: ${{ steps.check-package-version.outputs.version }} (${{ steps.check-package-version.outputs.type }})"'
-        if: steps.check-package-version.outputs.changed == 'true'
+      - name: Check if version tag already exists
+        id: version_tag
+        uses: mukunku/tag-exists-action@bdad1eaa119ce71b150b952c97351c75025c06a9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: v${{ steps.package_version.outputs.npm }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.check-package-version.outputs.version }}
+          tag_name: v${{ steps.package_version.outputs.npm }}
           generate_release_notes: true
-        if: steps.check-package-version.outputs.changed == 'true'
+        if: steps.version_tag.outputs.exists == 'false'
