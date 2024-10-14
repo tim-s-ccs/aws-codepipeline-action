@@ -3650,7 +3650,7 @@ var import_middleware_serde = __nccwpck_require__(3255);
 var import_core2 = __nccwpck_require__(8704);
 
 
-var import_uuid = __nccwpck_require__(226);
+var import_uuid = __nccwpck_require__(2048);
 
 // src/models/CodePipelineServiceException.ts
 
@@ -3748,6 +3748,7 @@ var InvalidClientTokenException = _InvalidClientTokenException;
 var ActionCategory = {
   Approval: "Approval",
   Build: "Build",
+  Compute: "Compute",
   Deploy: "Deploy",
   Invoke: "Invoke",
   Source: "Source",
@@ -6983,7 +6984,7 @@ const getRuntimeConfig = (config) => {
         bodyLengthChecker: config?.bodyLengthChecker ?? util_body_length_node_1.calculateBodyLength,
         credentialDefaultProvider: config?.credentialDefaultProvider ?? credential_provider_node_1.defaultProvider,
         defaultUserAgentProvider: config?.defaultUserAgentProvider ??
-            (0, util_user_agent_node_1.defaultUserAgent)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
+            (0, util_user_agent_node_1.createDefaultUserAgentProvider)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
         maxAttempts: config?.maxAttempts ?? (0, node_config_provider_1.loadConfig)(middleware_retry_1.NODE_MAX_ATTEMPT_CONFIG_OPTIONS),
         region: config?.region ?? (0, node_config_provider_1.loadConfig)(config_resolver_1.NODE_REGION_CONFIG_OPTIONS, config_resolver_1.NODE_REGION_CONFIG_FILE_OPTIONS),
         requestHandler: node_http_handler_1.NodeHttpHandler.create(config?.requestHandler ?? defaultConfigProvider),
@@ -7043,687 +7044,6 @@ const getRuntimeConfig = (config) => {
 };
 exports.getRuntimeConfig = getRuntimeConfig;
 
-
-/***/ }),
-
-/***/ 226:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-Object.defineProperty(exports, "NIL", ({
-  enumerable: true,
-  get: function () {
-    return _nil.default;
-  }
-}));
-Object.defineProperty(exports, "parse", ({
-  enumerable: true,
-  get: function () {
-    return _parse.default;
-  }
-}));
-Object.defineProperty(exports, "stringify", ({
-  enumerable: true,
-  get: function () {
-    return _stringify.default;
-  }
-}));
-Object.defineProperty(exports, "v1", ({
-  enumerable: true,
-  get: function () {
-    return _v.default;
-  }
-}));
-Object.defineProperty(exports, "v3", ({
-  enumerable: true,
-  get: function () {
-    return _v2.default;
-  }
-}));
-Object.defineProperty(exports, "v4", ({
-  enumerable: true,
-  get: function () {
-    return _v3.default;
-  }
-}));
-Object.defineProperty(exports, "v5", ({
-  enumerable: true,
-  get: function () {
-    return _v4.default;
-  }
-}));
-Object.defineProperty(exports, "validate", ({
-  enumerable: true,
-  get: function () {
-    return _validate.default;
-  }
-}));
-Object.defineProperty(exports, "version", ({
-  enumerable: true,
-  get: function () {
-    return _version.default;
-  }
-}));
-
-var _v = _interopRequireDefault(__nccwpck_require__(3093));
-
-var _v2 = _interopRequireDefault(__nccwpck_require__(5075));
-
-var _v3 = _interopRequireDefault(__nccwpck_require__(858));
-
-var _v4 = _interopRequireDefault(__nccwpck_require__(345));
-
-var _nil = _interopRequireDefault(__nccwpck_require__(3597));
-
-var _version = _interopRequireDefault(__nccwpck_require__(1702));
-
-var _validate = _interopRequireDefault(__nccwpck_require__(2294));
-
-var _stringify = _interopRequireDefault(__nccwpck_require__(1871));
-
-var _parse = _interopRequireDefault(__nccwpck_require__(8625));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ 9822:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function md5(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === 'string') {
-    bytes = Buffer.from(bytes, 'utf8');
-  }
-
-  return _crypto.default.createHash('md5').update(bytes).digest();
-}
-
-var _default = md5;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 3967:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-  randomUUID: _crypto.default.randomUUID
-};
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 3597:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-var _default = '00000000-0000-0000-0000-000000000000';
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 8625:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _validate = _interopRequireDefault(__nccwpck_require__(2294));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function parse(uuid) {
-  if (!(0, _validate.default)(uuid)) {
-    throw TypeError('Invalid UUID');
-  }
-
-  let v;
-  const arr = new Uint8Array(16); // Parse ########-....-....-....-............
-
-  arr[0] = (v = parseInt(uuid.slice(0, 8), 16)) >>> 24;
-  arr[1] = v >>> 16 & 0xff;
-  arr[2] = v >>> 8 & 0xff;
-  arr[3] = v & 0xff; // Parse ........-####-....-....-............
-
-  arr[4] = (v = parseInt(uuid.slice(9, 13), 16)) >>> 8;
-  arr[5] = v & 0xff; // Parse ........-....-####-....-............
-
-  arr[6] = (v = parseInt(uuid.slice(14, 18), 16)) >>> 8;
-  arr[7] = v & 0xff; // Parse ........-....-....-####-............
-
-  arr[8] = (v = parseInt(uuid.slice(19, 23), 16)) >>> 8;
-  arr[9] = v & 0xff; // Parse ........-....-....-....-############
-  // (Use "/" to avoid 32-bit truncation when bit-shifting high-order bytes)
-
-  arr[10] = (v = parseInt(uuid.slice(24, 36), 16)) / 0x10000000000 & 0xff;
-  arr[11] = v / 0x100000000 & 0xff;
-  arr[12] = v >>> 24 & 0xff;
-  arr[13] = v >>> 16 & 0xff;
-  arr[14] = v >>> 8 & 0xff;
-  arr[15] = v & 0xff;
-  return arr;
-}
-
-var _default = parse;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 1269:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-var _default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 8311:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = rng;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const rnds8Pool = new Uint8Array(256); // # of random values to pre-allocate
-
-let poolPtr = rnds8Pool.length;
-
-function rng() {
-  if (poolPtr > rnds8Pool.length - 16) {
-    _crypto.default.randomFillSync(rnds8Pool);
-
-    poolPtr = 0;
-  }
-
-  return rnds8Pool.slice(poolPtr, poolPtr += 16);
-}
-
-/***/ }),
-
-/***/ 4937:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function sha1(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === 'string') {
-    bytes = Buffer.from(bytes, 'utf8');
-  }
-
-  return _crypto.default.createHash('sha1').update(bytes).digest();
-}
-
-var _default = sha1;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 1871:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-exports.unsafeStringify = unsafeStringify;
-
-var _validate = _interopRequireDefault(__nccwpck_require__(2294));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-const byteToHex = [];
-
-for (let i = 0; i < 256; ++i) {
-  byteToHex.push((i + 0x100).toString(16).slice(1));
-}
-
-function unsafeStringify(arr, offset = 0) {
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  return byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]];
-}
-
-function stringify(arr, offset = 0) {
-  const uuid = unsafeStringify(arr, offset); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!(0, _validate.default)(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-
-  return uuid;
-}
-
-var _default = stringify;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 3093:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _rng = _interopRequireDefault(__nccwpck_require__(8311));
-
-var _stringify = __nccwpck_require__(1871);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// **`v1()` - Generate time-based UUID**
-//
-// Inspired by https://github.com/LiosK/UUID.js
-// and http://docs.python.org/library/uuid.html
-let _nodeId;
-
-let _clockseq; // Previous uuid creation time
-
-
-let _lastMSecs = 0;
-let _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
-
-function v1(options, buf, offset) {
-  let i = buf && offset || 0;
-  const b = buf || new Array(16);
-  options = options || {};
-  let node = options.node || _nodeId;
-  let clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
-  // specified.  We do this lazily to minimize issues related to insufficient
-  // system entropy.  See #189
-
-  if (node == null || clockseq == null) {
-    const seedBytes = options.random || (options.rng || _rng.default)();
-
-    if (node == null) {
-      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
-      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
-    }
-
-    if (clockseq == null) {
-      // Per 4.2.2, randomize (14 bit) clockseq
-      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
-    }
-  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
-  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
-  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
-  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
-
-
-  let msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
-  // cycle to simulate higher resolution clock
-
-  let nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
-
-  const dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
-
-  if (dt < 0 && options.clockseq === undefined) {
-    clockseq = clockseq + 1 & 0x3fff;
-  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
-  // time interval
-
-
-  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
-    nsecs = 0;
-  } // Per 4.2.1.2 Throw error if too many uuids are requested
-
-
-  if (nsecs >= 10000) {
-    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-  }
-
-  _lastMSecs = msecs;
-  _lastNSecs = nsecs;
-  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
-
-  msecs += 12219292800000; // `time_low`
-
-  const tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
-  b[i++] = tl >>> 24 & 0xff;
-  b[i++] = tl >>> 16 & 0xff;
-  b[i++] = tl >>> 8 & 0xff;
-  b[i++] = tl & 0xff; // `time_mid`
-
-  const tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
-  b[i++] = tmh >>> 8 & 0xff;
-  b[i++] = tmh & 0xff; // `time_high_and_version`
-
-  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
-
-  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
-
-  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
-
-  b[i++] = clockseq & 0xff; // `node`
-
-  for (let n = 0; n < 6; ++n) {
-    b[i + n] = node[n];
-  }
-
-  return buf || (0, _stringify.unsafeStringify)(b);
-}
-
-var _default = v1;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 5075:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _v = _interopRequireDefault(__nccwpck_require__(7792));
-
-var _md = _interopRequireDefault(__nccwpck_require__(9822));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const v3 = (0, _v.default)('v3', 0x30, _md.default);
-var _default = v3;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 7792:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.URL = exports.DNS = void 0;
-exports["default"] = v35;
-
-var _stringify = __nccwpck_require__(1871);
-
-var _parse = _interopRequireDefault(__nccwpck_require__(8625));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function stringToBytes(str) {
-  str = unescape(encodeURIComponent(str)); // UTF8 escape
-
-  const bytes = [];
-
-  for (let i = 0; i < str.length; ++i) {
-    bytes.push(str.charCodeAt(i));
-  }
-
-  return bytes;
-}
-
-const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
-exports.DNS = DNS;
-const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
-exports.URL = URL;
-
-function v35(name, version, hashfunc) {
-  function generateUUID(value, namespace, buf, offset) {
-    var _namespace;
-
-    if (typeof value === 'string') {
-      value = stringToBytes(value);
-    }
-
-    if (typeof namespace === 'string') {
-      namespace = (0, _parse.default)(namespace);
-    }
-
-    if (((_namespace = namespace) === null || _namespace === void 0 ? void 0 : _namespace.length) !== 16) {
-      throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
-    } // Compute hash of namespace and value, Per 4.3
-    // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
-    // hashfunc([...namespace, ... value])`
-
-
-    let bytes = new Uint8Array(16 + value.length);
-    bytes.set(namespace);
-    bytes.set(value, namespace.length);
-    bytes = hashfunc(bytes);
-    bytes[6] = bytes[6] & 0x0f | version;
-    bytes[8] = bytes[8] & 0x3f | 0x80;
-
-    if (buf) {
-      offset = offset || 0;
-
-      for (let i = 0; i < 16; ++i) {
-        buf[offset + i] = bytes[i];
-      }
-
-      return buf;
-    }
-
-    return (0, _stringify.unsafeStringify)(bytes);
-  } // Function#name is not settable on some platforms (#270)
-
-
-  try {
-    generateUUID.name = name; // eslint-disable-next-line no-empty
-  } catch (err) {} // For CommonJS default export support
-
-
-  generateUUID.DNS = DNS;
-  generateUUID.URL = URL;
-  return generateUUID;
-}
-
-/***/ }),
-
-/***/ 858:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _native = _interopRequireDefault(__nccwpck_require__(3967));
-
-var _rng = _interopRequireDefault(__nccwpck_require__(8311));
-
-var _stringify = __nccwpck_require__(1871);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function v4(options, buf, offset) {
-  if (_native.default.randomUUID && !buf && !options) {
-    return _native.default.randomUUID();
-  }
-
-  options = options || {};
-
-  const rnds = options.random || (options.rng || _rng.default)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-
-    for (let i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-
-    return buf;
-  }
-
-  return (0, _stringify.unsafeStringify)(rnds);
-}
-
-var _default = v4;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 345:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _v = _interopRequireDefault(__nccwpck_require__(7792));
-
-var _sha = _interopRequireDefault(__nccwpck_require__(4937));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const v5 = (0, _v.default)('v5', 0x50, _sha.default);
-var _default = v5;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 2294:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _regex = _interopRequireDefault(__nccwpck_require__(1269));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function validate(uuid) {
-  return typeof uuid === 'string' && _regex.default.test(uuid);
-}
-
-var _default = validate;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 1702:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _validate = _interopRequireDefault(__nccwpck_require__(2294));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function version(uuid) {
-  if (!(0, _validate.default)(uuid)) {
-    throw TypeError('Invalid UUID');
-  }
-
-  return parseInt(uuid.slice(14, 15), 16);
-}
-
-var _default = version;
-exports["default"] = _default;
 
 /***/ }),
 
@@ -8907,7 +8227,7 @@ const getRuntimeConfig = (config) => {
         bodyLengthChecker: config?.bodyLengthChecker ?? util_body_length_node_1.calculateBodyLength,
         credentialDefaultProvider: config?.credentialDefaultProvider ?? credential_provider_node_1.defaultProvider,
         defaultUserAgentProvider: config?.defaultUserAgentProvider ??
-            (0, util_user_agent_node_1.defaultUserAgent)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
+            (0, util_user_agent_node_1.createDefaultUserAgentProvider)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
         maxAttempts: config?.maxAttempts ?? (0, node_config_provider_1.loadConfig)(middleware_retry_1.NODE_MAX_ATTEMPT_CONFIG_OPTIONS),
         region: config?.region ?? (0, node_config_provider_1.loadConfig)(config_resolver_1.NODE_REGION_CONFIG_OPTIONS, config_resolver_1.NODE_REGION_CONFIG_FILE_OPTIONS),
         requestHandler: node_http_handler_1.NodeHttpHandler.create(config?.requestHandler ?? defaultConfigProvider),
@@ -9725,7 +9045,7 @@ const getRuntimeConfig = (config) => {
         defaultsMode,
         bodyLengthChecker: config?.bodyLengthChecker ?? util_body_length_node_1.calculateBodyLength,
         defaultUserAgentProvider: config?.defaultUserAgentProvider ??
-            (0, util_user_agent_node_1.defaultUserAgent)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
+            (0, util_user_agent_node_1.createDefaultUserAgentProvider)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
         maxAttempts: config?.maxAttempts ?? (0, node_config_provider_1.loadConfig)(middleware_retry_1.NODE_MAX_ATTEMPT_CONFIG_OPTIONS),
         region: config?.region ?? (0, node_config_provider_1.loadConfig)(config_resolver_1.NODE_REGION_CONFIG_OPTIONS, config_resolver_1.NODE_REGION_CONFIG_FILE_OPTIONS),
         requestHandler: node_http_handler_1.NodeHttpHandler.create(config?.requestHandler ?? defaultConfigProvider),
@@ -11330,6 +10650,7 @@ var STS = _STS;
 var import_EndpointParameters9 = __nccwpck_require__(2912);
 
 // src/defaultStsRoleAssumers.ts
+var import_client = __nccwpck_require__(5152);
 var ASSUME_ROLE_DEFAULT_REGION = "us-east-1";
 var getAccountIdFromAssumedRoleUser = /* @__PURE__ */ __name((assumedRoleUser) => {
   if (typeof (assumedRoleUser == null ? void 0 : assumedRoleUser.Arn) === "string") {
@@ -11386,7 +10707,7 @@ var getDefaultRoleAssumer = /* @__PURE__ */ __name((stsOptions, stsClientCtor) =
       throw new Error(`Invalid response from STS.assumeRole call with role ${params.RoleArn}`);
     }
     const accountId = getAccountIdFromAssumedRoleUser(AssumedRoleUser2);
-    return {
+    const credentials = {
       accessKeyId: Credentials2.AccessKeyId,
       secretAccessKey: Credentials2.SecretAccessKey,
       sessionToken: Credentials2.SessionToken,
@@ -11395,6 +10716,8 @@ var getDefaultRoleAssumer = /* @__PURE__ */ __name((stsOptions, stsClientCtor) =
       ...Credentials2.CredentialScope && { credentialScope: Credentials2.CredentialScope },
       ...accountId && { accountId }
     };
+    (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_STS_ASSUME_ROLE", "i");
+    return credentials;
   };
 }, "getDefaultRoleAssumer");
 var getDefaultRoleAssumerWithWebIdentity = /* @__PURE__ */ __name((stsOptions, stsClientCtor) => {
@@ -11425,7 +10748,7 @@ var getDefaultRoleAssumerWithWebIdentity = /* @__PURE__ */ __name((stsOptions, s
       throw new Error(`Invalid response from STS.assumeRoleWithWebIdentity call with role ${params.RoleArn}`);
     }
     const accountId = getAccountIdFromAssumedRoleUser(AssumedRoleUser2);
-    return {
+    const credentials = {
       accessKeyId: Credentials2.AccessKeyId,
       secretAccessKey: Credentials2.SecretAccessKey,
       sessionToken: Credentials2.SessionToken,
@@ -11434,6 +10757,11 @@ var getDefaultRoleAssumerWithWebIdentity = /* @__PURE__ */ __name((stsOptions, s
       ...Credentials2.CredentialScope && { credentialScope: Credentials2.CredentialScope },
       ...accountId && { accountId }
     };
+    if (accountId) {
+      (0, import_client.setCredentialFeature)(credentials, "RESOLVED_ACCOUNT_ID", "T");
+    }
+    (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_STS_ASSUME_ROLE_WEB_ID", "k");
+    return credentials;
   };
 }, "getDefaultRoleAssumerWithWebIdentity");
 var isH2 = /* @__PURE__ */ __name((requestHandler) => {
@@ -11510,7 +10838,7 @@ const getRuntimeConfig = (config) => {
         bodyLengthChecker: config?.bodyLengthChecker ?? util_body_length_node_1.calculateBodyLength,
         credentialDefaultProvider: config?.credentialDefaultProvider ?? credential_provider_node_1.defaultProvider,
         defaultUserAgentProvider: config?.defaultUserAgentProvider ??
-            (0, util_user_agent_node_1.defaultUserAgent)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
+            (0, util_user_agent_node_1.createDefaultUserAgentProvider)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
         httpAuthSchemes: config?.httpAuthSchemes ?? [
             {
                 schemeId: "aws.auth#sigv4",
@@ -11667,6 +10995,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var client_exports = {};
 __export(client_exports, {
   emitWarningIfUnsupportedVersion: () => emitWarningIfUnsupportedVersion,
+  setCredentialFeature: () => setCredentialFeature,
   setFeature: () => setFeature
 });
 module.exports = __toCommonJS(client_exports);
@@ -11687,6 +11016,16 @@ More information can be found at: https://a.co/74kJMmI`
     );
   }
 }, "emitWarningIfUnsupportedVersion");
+
+// src/submodules/client/setCredentialFeature.ts
+function setCredentialFeature(credentials, feature, value) {
+  if (!credentials.$source) {
+    credentials.$source = {};
+  }
+  credentials.$source[feature] = value;
+  return credentials;
+}
+__name(setCredentialFeature, "setCredentialFeature");
 
 // src/submodules/client/setFeature.ts
 function setFeature(context, feature, value) {
@@ -11903,11 +11242,14 @@ var NODE_SIGV4A_CONFIG_OPTIONS = {
 };
 
 // src/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.ts
+var import_client = __nccwpck_require__(5152);
 var import_core2 = __nccwpck_require__(402);
 var import_signature_v4 = __nccwpck_require__(5118);
 var resolveAwsSdkSigV4Config = /* @__PURE__ */ __name((config) => {
+  let isUserSupplied = false;
   let normalizedCreds;
   if (config.credentials) {
+    isUserSupplied = true;
     normalizedCreds = (0, import_core2.memoizeIdentityProvider)(config.credentials, import_core2.isIdentityExpired, import_core2.doesIdentityRequireRefresh);
   }
   if (!normalizedCreds) {
@@ -11992,7 +11334,9 @@ var resolveAwsSdkSigV4Config = /* @__PURE__ */ __name((config) => {
     ...config,
     systemClockOffset,
     signingEscapePath,
-    credentials: normalizedCreds,
+    credentials: isUserSupplied ? async () => normalizedCreds().then(
+      (creds) => (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_CODE", "e")
+    ) : normalizedCreds,
     signer
   };
 }, "resolveAwsSdkSigV4Config");
@@ -12266,6 +11610,7 @@ __export(src_exports, {
 module.exports = __toCommonJS(src_exports);
 
 // src/fromEnv.ts
+var import_client = __nccwpck_require__(5152);
 var import_property_provider = __nccwpck_require__(1238);
 var ENV_KEY = "AWS_ACCESS_KEY_ID";
 var ENV_SECRET = "AWS_SECRET_ACCESS_KEY";
@@ -12283,7 +11628,7 @@ var fromEnv = /* @__PURE__ */ __name((init) => async () => {
   const credentialScope = process.env[ENV_CREDENTIAL_SCOPE];
   const accountId = process.env[ENV_ACCOUNT_ID];
   if (accessKeyId && secretAccessKey) {
-    return {
+    const credentials = {
       accessKeyId,
       secretAccessKey,
       ...sessionToken && { sessionToken },
@@ -12291,6 +11636,8 @@ var fromEnv = /* @__PURE__ */ __name((init) => async () => {
       ...credentialScope && { credentialScope },
       ...accountId && { accountId }
     };
+    (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_ENV_VARS", "g");
+    return credentials;
   }
   throw new import_property_provider.CredentialsProviderError("Unable to find environment variable credentials.", { logger: init == null ? void 0 : init.logger });
 }, "fromEnv");
@@ -12364,6 +11711,7 @@ exports.checkUrl = checkUrl;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.fromHttp = void 0;
 const tslib_1 = __nccwpck_require__(1860);
+const client_1 = __nccwpck_require__(5152);
 const node_http_handler_1 = __nccwpck_require__(1279);
 const property_provider_1 = __nccwpck_require__(1238);
 const promises_1 = tslib_1.__importDefault(__nccwpck_require__(1943));
@@ -12419,7 +11767,7 @@ Set AWS_CONTAINER_CREDENTIALS_FULL_URI or AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
         }
         try {
             const result = await requestHandler.handle(request);
-            return (0, requestHelpers_1.getCredentials)(result.response);
+            return (0, requestHelpers_1.getCredentials)(result.response).then((creds) => (0, client_1.setCredentialFeature)(creds, "CREDENTIALS_HTTP", "z"));
         }
         catch (e) {
             throw new property_provider_1.CredentialsProviderError(String(e), { logger: options.logger });
@@ -12580,9 +11928,11 @@ module.exports = __toCommonJS(src_exports);
 
 // src/resolveAssumeRoleCredentials.ts
 
+
 var import_shared_ini_file_loader = __nccwpck_require__(4964);
 
 // src/resolveCredentialSource.ts
+var import_client = __nccwpck_require__(5152);
 var import_property_provider = __nccwpck_require__(1238);
 var resolveCredentialSource = /* @__PURE__ */ __name((credentialSource, profileName, logger) => {
   const sourceProvidersMap = {
@@ -12590,17 +11940,17 @@ var resolveCredentialSource = /* @__PURE__ */ __name((credentialSource, profileN
       const { fromHttp } = await Promise.resolve().then(() => __toESM(__nccwpck_require__(8605)));
       const { fromContainerMetadata } = await Promise.resolve().then(() => __toESM(__nccwpck_require__(566)));
       logger == null ? void 0 : logger.debug("@aws-sdk/credential-provider-ini - credential_source is EcsContainer");
-      return (0, import_property_provider.chain)(fromHttp(options ?? {}), fromContainerMetadata(options));
+      return async () => (0, import_property_provider.chain)(fromHttp(options ?? {}), fromContainerMetadata(options))().then(setNamedProvider);
     },
     Ec2InstanceMetadata: async (options) => {
       logger == null ? void 0 : logger.debug("@aws-sdk/credential-provider-ini - credential_source is Ec2InstanceMetadata");
       const { fromInstanceMetadata } = await Promise.resolve().then(() => __toESM(__nccwpck_require__(566)));
-      return fromInstanceMetadata(options);
+      return async () => fromInstanceMetadata(options)().then(setNamedProvider);
     },
     Environment: async (options) => {
       logger == null ? void 0 : logger.debug("@aws-sdk/credential-provider-ini - credential_source is Environment");
       const { fromEnv } = await Promise.resolve().then(() => __toESM(__nccwpck_require__(5606)));
-      return fromEnv(options);
+      return async () => fromEnv(options)().then(setNamedProvider);
     }
   };
   if (credentialSource in sourceProvidersMap) {
@@ -12612,6 +11962,7 @@ var resolveCredentialSource = /* @__PURE__ */ __name((credentialSource, profileN
     );
   }
 }, "resolveCredentialSource");
+var setNamedProvider = /* @__PURE__ */ __name((creds) => (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_NAMED_PROVIDER", "p"), "setNamedProvider");
 
 // src/resolveAssumeRoleCredentials.ts
 var isAssumeRoleProfile = /* @__PURE__ */ __name((arg, { profile = "default", logger } = {}) => {
@@ -12669,7 +12020,7 @@ var resolveAssumeRoleCredentials = /* @__PURE__ */ __name(async (profileName, pr
     isCredentialSourceWithoutRoleArn(profiles[source_profile] ?? {})
   ) : (await resolveCredentialSource(data.credential_source, profileName, options.logger)(options))();
   if (isCredentialSourceWithoutRoleArn(data)) {
-    return sourceCredsProvider;
+    return sourceCredsProvider.then((creds) => (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_SOURCE_PROFILE", "o"));
   } else {
     const params = {
       RoleArn: data.role_arn,
@@ -12689,7 +12040,9 @@ var resolveAssumeRoleCredentials = /* @__PURE__ */ __name(async (profileName, pr
       params.TokenCode = await options.mfaCodeProvider(mfa_serial);
     }
     const sourceCreds = await sourceCredsProvider;
-    return options.roleAssumer(sourceCreds, params);
+    return options.roleAssumer(sourceCreds, params).then(
+      (creds) => (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_SOURCE_PROFILE", "o")
+    );
   }
 }, "resolveAssumeRoleCredentials");
 var isCredentialSourceWithoutRoleArn = /* @__PURE__ */ __name((section) => {
@@ -12697,39 +12050,50 @@ var isCredentialSourceWithoutRoleArn = /* @__PURE__ */ __name((section) => {
 }, "isCredentialSourceWithoutRoleArn");
 
 // src/resolveProcessCredentials.ts
+
 var isProcessProfile = /* @__PURE__ */ __name((arg) => Boolean(arg) && typeof arg === "object" && typeof arg.credential_process === "string", "isProcessProfile");
 var resolveProcessCredentials = /* @__PURE__ */ __name(async (options, profile) => Promise.resolve().then(() => __toESM(__nccwpck_require__(5360))).then(
   ({ fromProcess }) => fromProcess({
     ...options,
     profile
-  })()
+  })().then((creds) => (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_PROCESS", "v"))
 ), "resolveProcessCredentials");
 
 // src/resolveSsoCredentials.ts
-var resolveSsoCredentials = /* @__PURE__ */ __name(async (profile, options = {}) => {
+
+var resolveSsoCredentials = /* @__PURE__ */ __name(async (profile, profileData, options = {}) => {
   const { fromSSO } = await Promise.resolve().then(() => __toESM(__nccwpck_require__(998)));
   return fromSSO({
     profile,
     logger: options.logger
-  })();
+  })().then((creds) => {
+    if (profileData.sso_session) {
+      return (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_SSO", "r");
+    } else {
+      return (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_SSO_LEGACY", "t");
+    }
+  });
 }, "resolveSsoCredentials");
 var isSsoProfile = /* @__PURE__ */ __name((arg) => arg && (typeof arg.sso_start_url === "string" || typeof arg.sso_account_id === "string" || typeof arg.sso_session === "string" || typeof arg.sso_region === "string" || typeof arg.sso_role_name === "string"), "isSsoProfile");
 
 // src/resolveStaticCredentials.ts
+
 var isStaticCredsProfile = /* @__PURE__ */ __name((arg) => Boolean(arg) && typeof arg === "object" && typeof arg.aws_access_key_id === "string" && typeof arg.aws_secret_access_key === "string" && ["undefined", "string"].indexOf(typeof arg.aws_session_token) > -1 && ["undefined", "string"].indexOf(typeof arg.aws_account_id) > -1, "isStaticCredsProfile");
-var resolveStaticCredentials = /* @__PURE__ */ __name((profile, options) => {
+var resolveStaticCredentials = /* @__PURE__ */ __name(async (profile, options) => {
   var _a;
   (_a = options == null ? void 0 : options.logger) == null ? void 0 : _a.debug("@aws-sdk/credential-provider-ini - resolveStaticCredentials");
-  return Promise.resolve({
+  const credentials = {
     accessKeyId: profile.aws_access_key_id,
     secretAccessKey: profile.aws_secret_access_key,
     sessionToken: profile.aws_session_token,
     ...profile.aws_credential_scope && { credentialScope: profile.aws_credential_scope },
     ...profile.aws_account_id && { accountId: profile.aws_account_id }
-  });
+  };
+  return (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_PROFILE", "n");
 }, "resolveStaticCredentials");
 
 // src/resolveWebIdentityCredentials.ts
+
 var isWebIdentityProfile = /* @__PURE__ */ __name((arg) => Boolean(arg) && typeof arg === "object" && typeof arg.web_identity_token_file === "string" && typeof arg.role_arn === "string" && ["undefined", "string"].indexOf(typeof arg.role_session_name) > -1, "isWebIdentityProfile");
 var resolveWebIdentityCredentials = /* @__PURE__ */ __name(async (profile, options) => Promise.resolve().then(() => __toESM(__nccwpck_require__(9956))).then(
   ({ fromTokenFile }) => fromTokenFile({
@@ -12739,7 +12103,7 @@ var resolveWebIdentityCredentials = /* @__PURE__ */ __name(async (profile, optio
     roleAssumerWithWebIdentity: options.roleAssumerWithWebIdentity,
     logger: options.logger,
     parentClientConfig: options.parentClientConfig
-  })()
+  })().then((creds) => (0, import_client.setCredentialFeature)(creds, "CREDENTIALS_PROFILE_STS_WEB_ID_TOKEN", "q"))
 ), "resolveWebIdentityCredentials");
 
 // src/resolveProfileData.ts
@@ -12761,7 +12125,7 @@ var resolveProfileData = /* @__PURE__ */ __name(async (profileName, profiles, op
     return resolveProcessCredentials(options, profileName);
   }
   if (isSsoProfile(data)) {
-    return await resolveSsoCredentials(profileName, options);
+    return await resolveSsoCredentials(profileName, data, options);
   }
   throw new import_property_provider.CredentialsProviderError(
     `Could not resolve credentials using profile: [${profileName}] in configuration/credentials file(s).`,
@@ -12982,6 +12346,7 @@ var import_child_process = __nccwpck_require__(5317);
 var import_util = __nccwpck_require__(9023);
 
 // src/getValidatedProcessCredentials.ts
+var import_client = __nccwpck_require__(5152);
 var getValidatedProcessCredentials = /* @__PURE__ */ __name((profileName, data, profiles) => {
   var _a;
   if (data.Version !== 1) {
@@ -13001,7 +12366,7 @@ var getValidatedProcessCredentials = /* @__PURE__ */ __name((profileName, data, 
   if (!accountId && ((_a = profiles == null ? void 0 : profiles[profileName]) == null ? void 0 : _a.aws_account_id)) {
     accountId = profiles[profileName].aws_account_id;
   }
-  return {
+  const credentials = {
     accessKeyId: data.AccessKeyId,
     secretAccessKey: data.SecretAccessKey,
     ...data.SessionToken && { sessionToken: data.SessionToken },
@@ -13009,6 +12374,8 @@ var getValidatedProcessCredentials = /* @__PURE__ */ __name((profileName, data, 
     ...data.CredentialScope && { credentialScope: data.CredentialScope },
     ...accountId && { accountId }
   };
+  (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_PROCESS", "w");
+  return credentials;
 }, "getValidatedProcessCredentials");
 
 // src/resolveProcessCredentials.ts
@@ -13113,6 +12480,7 @@ module.exports = __toCommonJS(src_exports);
 var isSsoProfile = /* @__PURE__ */ __name((arg) => arg && (typeof arg.sso_start_url === "string" || typeof arg.sso_account_id === "string" || typeof arg.sso_session === "string" || typeof arg.sso_region === "string" || typeof arg.sso_role_name === "string"), "isSsoProfile");
 
 // src/resolveSSOCredentials.ts
+var import_client = __nccwpck_require__(5152);
 var import_token_providers = __nccwpck_require__(5433);
 var import_property_provider = __nccwpck_require__(1238);
 var import_shared_ini_file_loader = __nccwpck_require__(4964);
@@ -13190,7 +12558,7 @@ var resolveSSOCredentials = /* @__PURE__ */ __name(async ({
       logger
     });
   }
-  return {
+  const credentials = {
     accessKeyId,
     secretAccessKey,
     sessionToken,
@@ -13198,6 +12566,12 @@ var resolveSSOCredentials = /* @__PURE__ */ __name(async ({
     ...credentialScope && { credentialScope },
     ...accountId && { accountId }
   };
+  if (ssoSession) {
+    (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_SSO", "s");
+  } else {
+    (0, import_client.setCredentialFeature)(credentials, "CREDENTIALS_SSO_LEGACY", "u");
+  }
+  return credentials;
 }, "resolveSSOCredentials");
 
 // src/validateSsoProfile.ts
@@ -13300,6 +12674,7 @@ var fromSSO = /* @__PURE__ */ __name((init = {}) => async () => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.fromTokenFile = void 0;
+const client_1 = __nccwpck_require__(5152);
 const property_provider_1 = __nccwpck_require__(1238);
 const fs_1 = __nccwpck_require__(9896);
 const fromWebToken_1 = __nccwpck_require__(4453);
@@ -13316,12 +12691,16 @@ const fromTokenFile = (init = {}) => async () => {
             logger: init.logger,
         });
     }
-    return (0, fromWebToken_1.fromWebToken)({
+    const credentials = await (0, fromWebToken_1.fromWebToken)({
         ...init,
         webIdentityToken: (0, fs_1.readFileSync)(webIdentityTokenFile, { encoding: "ascii" }),
         roleArn,
         roleSessionName,
     })();
+    if (webIdentityTokenFile === process.env[ENV_TOKEN_FILE]) {
+        (0, client_1.setCredentialFeature)(credentials, "CREDENTIALS_ENV_VARS_STS_WEB_ID_TOKEN", "h");
+    }
+    return credentials;
 };
 exports.fromTokenFile = fromTokenFile;
 
@@ -13719,6 +13098,57 @@ __name(resolveUserAgentConfig, "resolveUserAgentConfig");
 var import_util_endpoints = __nccwpck_require__(3068);
 var import_protocol_http = __nccwpck_require__(2356);
 
+// src/check-features.ts
+var import_core2 = __nccwpck_require__(8704);
+var ACCOUNT_ID_ENDPOINT_REGEX = /\d{12}\.ddb/;
+async function checkFeatures(context, config, args) {
+  var _a, _b, _c, _d, _e, _f, _g;
+  const request = args.request;
+  if (((_a = request == null ? void 0 : request.headers) == null ? void 0 : _a["smithy-protocol"]) === "rpc-v2-cbor") {
+    (0, import_core2.setFeature)(context, "PROTOCOL_RPC_V2_CBOR", "M");
+  }
+  if (typeof config.retryStrategy === "function") {
+    const retryStrategy = await config.retryStrategy();
+    if (typeof retryStrategy.acquireInitialRetryToken === "function") {
+      if ((_c = (_b = retryStrategy.constructor) == null ? void 0 : _b.name) == null ? void 0 : _c.includes("Adaptive")) {
+        (0, import_core2.setFeature)(context, "RETRY_MODE_ADAPTIVE", "F");
+      } else {
+        (0, import_core2.setFeature)(context, "RETRY_MODE_STANDARD", "E");
+      }
+    } else {
+      (0, import_core2.setFeature)(context, "RETRY_MODE_LEGACY", "D");
+    }
+  }
+  if (typeof config.accountIdEndpointMode === "function") {
+    const endpointV2 = context.endpointV2;
+    if (String((_d = endpointV2 == null ? void 0 : endpointV2.url) == null ? void 0 : _d.hostname).match(ACCOUNT_ID_ENDPOINT_REGEX)) {
+      (0, import_core2.setFeature)(context, "ACCOUNT_ID_ENDPOINT", "O");
+    }
+    switch (await ((_e = config.accountIdEndpointMode) == null ? void 0 : _e.call(config))) {
+      case "disabled":
+        (0, import_core2.setFeature)(context, "ACCOUNT_ID_MODE_DISABLED", "Q");
+        break;
+      case "preferred":
+        (0, import_core2.setFeature)(context, "ACCOUNT_ID_MODE_PREFERRED", "P");
+        break;
+      case "required":
+        (0, import_core2.setFeature)(context, "ACCOUNT_ID_MODE_REQUIRED", "R");
+        break;
+    }
+  }
+  const identity = (_g = (_f = context.__smithy_context) == null ? void 0 : _f.selectedHttpAuthScheme) == null ? void 0 : _g.identity;
+  if (identity == null ? void 0 : identity.$source) {
+    const credentials = identity;
+    if (credentials.accountId) {
+      (0, import_core2.setFeature)(context, "RESOLVED_ACCOUNT_ID", "T");
+    }
+    for (const [key, value] of Object.entries(credentials.$source ?? {})) {
+      (0, import_core2.setFeature)(context, key, value);
+    }
+  }
+}
+__name(checkFeatures, "checkFeatures");
+
 // src/constants.ts
 var USER_AGENT = "user-agent";
 var X_AMZ_USER_AGENT = "x-amz-user-agent";
@@ -13758,6 +13188,7 @@ var userAgentMiddleware = /* @__PURE__ */ __name((options) => (next, context) =>
   const { headers } = request;
   const userAgent = ((_a = context == null ? void 0 : context.userAgent) == null ? void 0 : _a.map(escapeUserAgent)) || [];
   const defaultUserAgent = (await options.defaultUserAgentProvider()).map(escapeUserAgent);
+  await checkFeatures(context, options, args);
   const awsContext = context;
   defaultUserAgent.push(
     `m/${encodeFeatures(
@@ -16647,7 +16078,7 @@ module.exports = __toCommonJS(src_exports);
 var import_protocol_http = __nccwpck_require__(2356);
 
 
-var import_uuid = __nccwpck_require__(7708);
+var import_uuid = __nccwpck_require__(2048);
 
 // src/defaultRetryQuota.ts
 var import_util_retry = __nccwpck_require__(5518);
@@ -17019,687 +16450,6 @@ const isStreamingPayload = (request) => (request === null || request === void 0 
     (typeof ReadableStream !== "undefined" && (request === null || request === void 0 ? void 0 : request.body) instanceof ReadableStream);
 exports.isStreamingPayload = isStreamingPayload;
 
-
-/***/ }),
-
-/***/ 7708:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-Object.defineProperty(exports, "NIL", ({
-  enumerable: true,
-  get: function () {
-    return _nil.default;
-  }
-}));
-Object.defineProperty(exports, "parse", ({
-  enumerable: true,
-  get: function () {
-    return _parse.default;
-  }
-}));
-Object.defineProperty(exports, "stringify", ({
-  enumerable: true,
-  get: function () {
-    return _stringify.default;
-  }
-}));
-Object.defineProperty(exports, "v1", ({
-  enumerable: true,
-  get: function () {
-    return _v.default;
-  }
-}));
-Object.defineProperty(exports, "v3", ({
-  enumerable: true,
-  get: function () {
-    return _v2.default;
-  }
-}));
-Object.defineProperty(exports, "v4", ({
-  enumerable: true,
-  get: function () {
-    return _v3.default;
-  }
-}));
-Object.defineProperty(exports, "v5", ({
-  enumerable: true,
-  get: function () {
-    return _v4.default;
-  }
-}));
-Object.defineProperty(exports, "validate", ({
-  enumerable: true,
-  get: function () {
-    return _validate.default;
-  }
-}));
-Object.defineProperty(exports, "version", ({
-  enumerable: true,
-  get: function () {
-    return _version.default;
-  }
-}));
-
-var _v = _interopRequireDefault(__nccwpck_require__(6323));
-
-var _v2 = _interopRequireDefault(__nccwpck_require__(5285));
-
-var _v3 = _interopRequireDefault(__nccwpck_require__(8960));
-
-var _v4 = _interopRequireDefault(__nccwpck_require__(5831));
-
-var _nil = _interopRequireDefault(__nccwpck_require__(4143));
-
-var _version = _interopRequireDefault(__nccwpck_require__(2224));
-
-var _validate = _interopRequireDefault(__nccwpck_require__(9820));
-
-var _stringify = _interopRequireDefault(__nccwpck_require__(3601));
-
-var _parse = _interopRequireDefault(__nccwpck_require__(8351));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ 276:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function md5(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === 'string') {
-    bytes = Buffer.from(bytes, 'utf8');
-  }
-
-  return _crypto.default.createHash('md5').update(bytes).digest();
-}
-
-var _default = md5;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 2921:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-  randomUUID: _crypto.default.randomUUID
-};
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 4143:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-var _default = '00000000-0000-0000-0000-000000000000';
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 8351:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _validate = _interopRequireDefault(__nccwpck_require__(9820));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function parse(uuid) {
-  if (!(0, _validate.default)(uuid)) {
-    throw TypeError('Invalid UUID');
-  }
-
-  let v;
-  const arr = new Uint8Array(16); // Parse ########-....-....-....-............
-
-  arr[0] = (v = parseInt(uuid.slice(0, 8), 16)) >>> 24;
-  arr[1] = v >>> 16 & 0xff;
-  arr[2] = v >>> 8 & 0xff;
-  arr[3] = v & 0xff; // Parse ........-####-....-....-............
-
-  arr[4] = (v = parseInt(uuid.slice(9, 13), 16)) >>> 8;
-  arr[5] = v & 0xff; // Parse ........-....-####-....-............
-
-  arr[6] = (v = parseInt(uuid.slice(14, 18), 16)) >>> 8;
-  arr[7] = v & 0xff; // Parse ........-....-....-####-............
-
-  arr[8] = (v = parseInt(uuid.slice(19, 23), 16)) >>> 8;
-  arr[9] = v & 0xff; // Parse ........-....-....-....-############
-  // (Use "/" to avoid 32-bit truncation when bit-shifting high-order bytes)
-
-  arr[10] = (v = parseInt(uuid.slice(24, 36), 16)) / 0x10000000000 & 0xff;
-  arr[11] = v / 0x100000000 & 0xff;
-  arr[12] = v >>> 24 & 0xff;
-  arr[13] = v >>> 16 & 0xff;
-  arr[14] = v >>> 8 & 0xff;
-  arr[15] = v & 0xff;
-  return arr;
-}
-
-var _default = parse;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 9555:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-var _default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 7281:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = rng;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const rnds8Pool = new Uint8Array(256); // # of random values to pre-allocate
-
-let poolPtr = rnds8Pool.length;
-
-function rng() {
-  if (poolPtr > rnds8Pool.length - 16) {
-    _crypto.default.randomFillSync(rnds8Pool);
-
-    poolPtr = 0;
-  }
-
-  return rnds8Pool.slice(poolPtr, poolPtr += 16);
-}
-
-/***/ }),
-
-/***/ 5287:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function sha1(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === 'string') {
-    bytes = Buffer.from(bytes, 'utf8');
-  }
-
-  return _crypto.default.createHash('sha1').update(bytes).digest();
-}
-
-var _default = sha1;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 3601:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-exports.unsafeStringify = unsafeStringify;
-
-var _validate = _interopRequireDefault(__nccwpck_require__(9820));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-const byteToHex = [];
-
-for (let i = 0; i < 256; ++i) {
-  byteToHex.push((i + 0x100).toString(16).slice(1));
-}
-
-function unsafeStringify(arr, offset = 0) {
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  return byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]];
-}
-
-function stringify(arr, offset = 0) {
-  const uuid = unsafeStringify(arr, offset); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!(0, _validate.default)(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-
-  return uuid;
-}
-
-var _default = stringify;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 6323:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _rng = _interopRequireDefault(__nccwpck_require__(7281));
-
-var _stringify = __nccwpck_require__(3601);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// **`v1()` - Generate time-based UUID**
-//
-// Inspired by https://github.com/LiosK/UUID.js
-// and http://docs.python.org/library/uuid.html
-let _nodeId;
-
-let _clockseq; // Previous uuid creation time
-
-
-let _lastMSecs = 0;
-let _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
-
-function v1(options, buf, offset) {
-  let i = buf && offset || 0;
-  const b = buf || new Array(16);
-  options = options || {};
-  let node = options.node || _nodeId;
-  let clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
-  // specified.  We do this lazily to minimize issues related to insufficient
-  // system entropy.  See #189
-
-  if (node == null || clockseq == null) {
-    const seedBytes = options.random || (options.rng || _rng.default)();
-
-    if (node == null) {
-      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
-      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
-    }
-
-    if (clockseq == null) {
-      // Per 4.2.2, randomize (14 bit) clockseq
-      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
-    }
-  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
-  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
-  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
-  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
-
-
-  let msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
-  // cycle to simulate higher resolution clock
-
-  let nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
-
-  const dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
-
-  if (dt < 0 && options.clockseq === undefined) {
-    clockseq = clockseq + 1 & 0x3fff;
-  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
-  // time interval
-
-
-  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
-    nsecs = 0;
-  } // Per 4.2.1.2 Throw error if too many uuids are requested
-
-
-  if (nsecs >= 10000) {
-    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-  }
-
-  _lastMSecs = msecs;
-  _lastNSecs = nsecs;
-  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
-
-  msecs += 12219292800000; // `time_low`
-
-  const tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
-  b[i++] = tl >>> 24 & 0xff;
-  b[i++] = tl >>> 16 & 0xff;
-  b[i++] = tl >>> 8 & 0xff;
-  b[i++] = tl & 0xff; // `time_mid`
-
-  const tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
-  b[i++] = tmh >>> 8 & 0xff;
-  b[i++] = tmh & 0xff; // `time_high_and_version`
-
-  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
-
-  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
-
-  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
-
-  b[i++] = clockseq & 0xff; // `node`
-
-  for (let n = 0; n < 6; ++n) {
-    b[i + n] = node[n];
-  }
-
-  return buf || (0, _stringify.unsafeStringify)(b);
-}
-
-var _default = v1;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 5285:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _v = _interopRequireDefault(__nccwpck_require__(1606));
-
-var _md = _interopRequireDefault(__nccwpck_require__(276));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const v3 = (0, _v.default)('v3', 0x30, _md.default);
-var _default = v3;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 1606:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.URL = exports.DNS = void 0;
-exports["default"] = v35;
-
-var _stringify = __nccwpck_require__(3601);
-
-var _parse = _interopRequireDefault(__nccwpck_require__(8351));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function stringToBytes(str) {
-  str = unescape(encodeURIComponent(str)); // UTF8 escape
-
-  const bytes = [];
-
-  for (let i = 0; i < str.length; ++i) {
-    bytes.push(str.charCodeAt(i));
-  }
-
-  return bytes;
-}
-
-const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
-exports.DNS = DNS;
-const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
-exports.URL = URL;
-
-function v35(name, version, hashfunc) {
-  function generateUUID(value, namespace, buf, offset) {
-    var _namespace;
-
-    if (typeof value === 'string') {
-      value = stringToBytes(value);
-    }
-
-    if (typeof namespace === 'string') {
-      namespace = (0, _parse.default)(namespace);
-    }
-
-    if (((_namespace = namespace) === null || _namespace === void 0 ? void 0 : _namespace.length) !== 16) {
-      throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
-    } // Compute hash of namespace and value, Per 4.3
-    // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
-    // hashfunc([...namespace, ... value])`
-
-
-    let bytes = new Uint8Array(16 + value.length);
-    bytes.set(namespace);
-    bytes.set(value, namespace.length);
-    bytes = hashfunc(bytes);
-    bytes[6] = bytes[6] & 0x0f | version;
-    bytes[8] = bytes[8] & 0x3f | 0x80;
-
-    if (buf) {
-      offset = offset || 0;
-
-      for (let i = 0; i < 16; ++i) {
-        buf[offset + i] = bytes[i];
-      }
-
-      return buf;
-    }
-
-    return (0, _stringify.unsafeStringify)(bytes);
-  } // Function#name is not settable on some platforms (#270)
-
-
-  try {
-    generateUUID.name = name; // eslint-disable-next-line no-empty
-  } catch (err) {} // For CommonJS default export support
-
-
-  generateUUID.DNS = DNS;
-  generateUUID.URL = URL;
-  return generateUUID;
-}
-
-/***/ }),
-
-/***/ 8960:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _native = _interopRequireDefault(__nccwpck_require__(2921));
-
-var _rng = _interopRequireDefault(__nccwpck_require__(7281));
-
-var _stringify = __nccwpck_require__(3601);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function v4(options, buf, offset) {
-  if (_native.default.randomUUID && !buf && !options) {
-    return _native.default.randomUUID();
-  }
-
-  options = options || {};
-
-  const rnds = options.random || (options.rng || _rng.default)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-
-    for (let i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-
-    return buf;
-  }
-
-  return (0, _stringify.unsafeStringify)(rnds);
-}
-
-var _default = v4;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 5831:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _v = _interopRequireDefault(__nccwpck_require__(1606));
-
-var _sha = _interopRequireDefault(__nccwpck_require__(5287));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const v5 = (0, _v.default)('v5', 0x50, _sha.default);
-var _default = v5;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 9820:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _regex = _interopRequireDefault(__nccwpck_require__(9555));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function validate(uuid) {
-  return typeof uuid === 'string' && _regex.default.test(uuid);
-}
-
-var _default = validate;
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ 2224:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _validate = _interopRequireDefault(__nccwpck_require__(9820));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function version(uuid) {
-  if (!(0, _validate.default)(uuid)) {
-    throw TypeError('Invalid UUID');
-  }
-
-  return parseInt(uuid.slice(14, 15), 16);
-}
-
-var _default = version;
-exports["default"] = _default;
 
 /***/ }),
 
@@ -26797,6 +25547,687 @@ exports.debug = debug; // for test
 
 /***/ }),
 
+/***/ 2048:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+Object.defineProperty(exports, "NIL", ({
+  enumerable: true,
+  get: function () {
+    return _nil.default;
+  }
+}));
+Object.defineProperty(exports, "parse", ({
+  enumerable: true,
+  get: function () {
+    return _parse.default;
+  }
+}));
+Object.defineProperty(exports, "stringify", ({
+  enumerable: true,
+  get: function () {
+    return _stringify.default;
+  }
+}));
+Object.defineProperty(exports, "v1", ({
+  enumerable: true,
+  get: function () {
+    return _v.default;
+  }
+}));
+Object.defineProperty(exports, "v3", ({
+  enumerable: true,
+  get: function () {
+    return _v2.default;
+  }
+}));
+Object.defineProperty(exports, "v4", ({
+  enumerable: true,
+  get: function () {
+    return _v3.default;
+  }
+}));
+Object.defineProperty(exports, "v5", ({
+  enumerable: true,
+  get: function () {
+    return _v4.default;
+  }
+}));
+Object.defineProperty(exports, "validate", ({
+  enumerable: true,
+  get: function () {
+    return _validate.default;
+  }
+}));
+Object.defineProperty(exports, "version", ({
+  enumerable: true,
+  get: function () {
+    return _version.default;
+  }
+}));
+
+var _v = _interopRequireDefault(__nccwpck_require__(6415));
+
+var _v2 = _interopRequireDefault(__nccwpck_require__(1697));
+
+var _v3 = _interopRequireDefault(__nccwpck_require__(4676));
+
+var _v4 = _interopRequireDefault(__nccwpck_require__(9771));
+
+var _nil = _interopRequireDefault(__nccwpck_require__(7723));
+
+var _version = _interopRequireDefault(__nccwpck_require__(5868));
+
+var _validate = _interopRequireDefault(__nccwpck_require__(6200));
+
+var _stringify = _interopRequireDefault(__nccwpck_require__(7597));
+
+var _parse = _interopRequireDefault(__nccwpck_require__(7267));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ 216:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function md5(bytes) {
+  if (Array.isArray(bytes)) {
+    bytes = Buffer.from(bytes);
+  } else if (typeof bytes === 'string') {
+    bytes = Buffer.from(bytes, 'utf8');
+  }
+
+  return _crypto.default.createHash('md5').update(bytes).digest();
+}
+
+var _default = md5;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 4221:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+  randomUUID: _crypto.default.randomUUID
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7723:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _default = '00000000-0000-0000-0000-000000000000';
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7267:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _validate = _interopRequireDefault(__nccwpck_require__(6200));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function parse(uuid) {
+  if (!(0, _validate.default)(uuid)) {
+    throw TypeError('Invalid UUID');
+  }
+
+  let v;
+  const arr = new Uint8Array(16); // Parse ########-....-....-....-............
+
+  arr[0] = (v = parseInt(uuid.slice(0, 8), 16)) >>> 24;
+  arr[1] = v >>> 16 & 0xff;
+  arr[2] = v >>> 8 & 0xff;
+  arr[3] = v & 0xff; // Parse ........-####-....-....-............
+
+  arr[4] = (v = parseInt(uuid.slice(9, 13), 16)) >>> 8;
+  arr[5] = v & 0xff; // Parse ........-....-####-....-............
+
+  arr[6] = (v = parseInt(uuid.slice(14, 18), 16)) >>> 8;
+  arr[7] = v & 0xff; // Parse ........-....-....-####-............
+
+  arr[8] = (v = parseInt(uuid.slice(19, 23), 16)) >>> 8;
+  arr[9] = v & 0xff; // Parse ........-....-....-....-############
+  // (Use "/" to avoid 32-bit truncation when bit-shifting high-order bytes)
+
+  arr[10] = (v = parseInt(uuid.slice(24, 36), 16)) / 0x10000000000 & 0xff;
+  arr[11] = v / 0x100000000 & 0xff;
+  arr[12] = v >>> 24 & 0xff;
+  arr[13] = v >>> 16 & 0xff;
+  arr[14] = v >>> 8 & 0xff;
+  arr[15] = v & 0xff;
+  return arr;
+}
+
+var _default = parse;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7879:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 2973:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = rng;
+
+var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const rnds8Pool = new Uint8Array(256); // # of random values to pre-allocate
+
+let poolPtr = rnds8Pool.length;
+
+function rng() {
+  if (poolPtr > rnds8Pool.length - 16) {
+    _crypto.default.randomFillSync(rnds8Pool);
+
+    poolPtr = 0;
+  }
+
+  return rnds8Pool.slice(poolPtr, poolPtr += 16);
+}
+
+/***/ }),
+
+/***/ 507:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _crypto = _interopRequireDefault(__nccwpck_require__(6982));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function sha1(bytes) {
+  if (Array.isArray(bytes)) {
+    bytes = Buffer.from(bytes);
+  } else if (typeof bytes === 'string') {
+    bytes = Buffer.from(bytes, 'utf8');
+  }
+
+  return _crypto.default.createHash('sha1').update(bytes).digest();
+}
+
+var _default = sha1;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7597:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+exports.unsafeStringify = unsafeStringify;
+
+var _validate = _interopRequireDefault(__nccwpck_require__(6200));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+const byteToHex = [];
+
+for (let i = 0; i < 256; ++i) {
+  byteToHex.push((i + 0x100).toString(16).slice(1));
+}
+
+function unsafeStringify(arr, offset = 0) {
+  // Note: Be careful editing this code!  It's been tuned for performance
+  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
+  return byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]];
+}
+
+function stringify(arr, offset = 0) {
+  const uuid = unsafeStringify(arr, offset); // Consistency check for valid UUID.  If this throws, it's likely due to one
+  // of the following:
+  // - One or more input array values don't map to a hex octet (leading to
+  // "undefined" in the uuid)
+  // - Invalid input values for the RFC `version` or `variant` fields
+
+  if (!(0, _validate.default)(uuid)) {
+    throw TypeError('Stringified UUID is invalid');
+  }
+
+  return uuid;
+}
+
+var _default = stringify;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 6415:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _rng = _interopRequireDefault(__nccwpck_require__(2973));
+
+var _stringify = __nccwpck_require__(7597);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+let _nodeId;
+
+let _clockseq; // Previous uuid creation time
+
+
+let _lastMSecs = 0;
+let _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
+
+function v1(options, buf, offset) {
+  let i = buf && offset || 0;
+  const b = buf || new Array(16);
+  options = options || {};
+  let node = options.node || _nodeId;
+  let clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
+  // specified.  We do this lazily to minimize issues related to insufficient
+  // system entropy.  See #189
+
+  if (node == null || clockseq == null) {
+    const seedBytes = options.random || (options.rng || _rng.default)();
+
+    if (node == null) {
+      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
+    }
+
+    if (clockseq == null) {
+      // Per 4.2.2, randomize (14 bit) clockseq
+      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+    }
+  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+
+
+  let msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+
+  let nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
+
+  const dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
+
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+
+
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  } // Per 4.2.1.2 Throw error if too many uuids are requested
+
+
+  if (nsecs >= 10000) {
+    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+
+  msecs += 12219292800000; // `time_low`
+
+  const tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff; // `time_mid`
+
+  const tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff; // `time_high_and_version`
+
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+
+  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+
+  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
+
+  b[i++] = clockseq & 0xff; // `node`
+
+  for (let n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf || (0, _stringify.unsafeStringify)(b);
+}
+
+var _default = v1;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 1697:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _v = _interopRequireDefault(__nccwpck_require__(2930));
+
+var _md = _interopRequireDefault(__nccwpck_require__(216));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const v3 = (0, _v.default)('v3', 0x30, _md.default);
+var _default = v3;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 2930:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.URL = exports.DNS = void 0;
+exports["default"] = v35;
+
+var _stringify = __nccwpck_require__(7597);
+
+var _parse = _interopRequireDefault(__nccwpck_require__(7267));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function stringToBytes(str) {
+  str = unescape(encodeURIComponent(str)); // UTF8 escape
+
+  const bytes = [];
+
+  for (let i = 0; i < str.length; ++i) {
+    bytes.push(str.charCodeAt(i));
+  }
+
+  return bytes;
+}
+
+const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+exports.DNS = DNS;
+const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+exports.URL = URL;
+
+function v35(name, version, hashfunc) {
+  function generateUUID(value, namespace, buf, offset) {
+    var _namespace;
+
+    if (typeof value === 'string') {
+      value = stringToBytes(value);
+    }
+
+    if (typeof namespace === 'string') {
+      namespace = (0, _parse.default)(namespace);
+    }
+
+    if (((_namespace = namespace) === null || _namespace === void 0 ? void 0 : _namespace.length) !== 16) {
+      throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
+    } // Compute hash of namespace and value, Per 4.3
+    // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
+    // hashfunc([...namespace, ... value])`
+
+
+    let bytes = new Uint8Array(16 + value.length);
+    bytes.set(namespace);
+    bytes.set(value, namespace.length);
+    bytes = hashfunc(bytes);
+    bytes[6] = bytes[6] & 0x0f | version;
+    bytes[8] = bytes[8] & 0x3f | 0x80;
+
+    if (buf) {
+      offset = offset || 0;
+
+      for (let i = 0; i < 16; ++i) {
+        buf[offset + i] = bytes[i];
+      }
+
+      return buf;
+    }
+
+    return (0, _stringify.unsafeStringify)(bytes);
+  } // Function#name is not settable on some platforms (#270)
+
+
+  try {
+    generateUUID.name = name; // eslint-disable-next-line no-empty
+  } catch (err) {} // For CommonJS default export support
+
+
+  generateUUID.DNS = DNS;
+  generateUUID.URL = URL;
+  return generateUUID;
+}
+
+/***/ }),
+
+/***/ 4676:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _native = _interopRequireDefault(__nccwpck_require__(4221));
+
+var _rng = _interopRequireDefault(__nccwpck_require__(2973));
+
+var _stringify = __nccwpck_require__(7597);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function v4(options, buf, offset) {
+  if (_native.default.randomUUID && !buf && !options) {
+    return _native.default.randomUUID();
+  }
+
+  options = options || {};
+
+  const rnds = options.random || (options.rng || _rng.default)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+
+  rnds[6] = rnds[6] & 0x0f | 0x40;
+  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+  if (buf) {
+    offset = offset || 0;
+
+    for (let i = 0; i < 16; ++i) {
+      buf[offset + i] = rnds[i];
+    }
+
+    return buf;
+  }
+
+  return (0, _stringify.unsafeStringify)(rnds);
+}
+
+var _default = v4;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 9771:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _v = _interopRequireDefault(__nccwpck_require__(2930));
+
+var _sha = _interopRequireDefault(__nccwpck_require__(507));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const v5 = (0, _v.default)('v5', 0x50, _sha.default);
+var _default = v5;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 6200:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _regex = _interopRequireDefault(__nccwpck_require__(7879));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function validate(uuid) {
+  return typeof uuid === 'string' && _regex.default.test(uuid);
+}
+
+var _default = validate;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 5868:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _validate = _interopRequireDefault(__nccwpck_require__(6200));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function version(uuid) {
+  if (!(0, _validate.default)(uuid)) {
+    throw TypeError('Invalid UUID');
+  }
+
+  return parseInt(uuid.slice(14, 15), 16);
+}
+
+var _default = version;
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ 2613:
 /***/ ((module) => {
 
@@ -26961,7 +26392,7 @@ module.exports = require("util");
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-codepipeline","description":"AWS SDK for JavaScript Codepipeline Client for Node.js, Browser and React Native","version":"3.665.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-codepipeline","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo codepipeline"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/client-sso-oidc":"3.665.0","@aws-sdk/client-sts":"3.665.0","@aws-sdk/core":"3.665.0","@aws-sdk/credential-provider-node":"3.665.0","@aws-sdk/middleware-host-header":"3.664.0","@aws-sdk/middleware-logger":"3.664.0","@aws-sdk/middleware-recursion-detection":"3.664.0","@aws-sdk/middleware-user-agent":"3.664.0","@aws-sdk/region-config-resolver":"3.664.0","@aws-sdk/types":"3.664.0","@aws-sdk/util-endpoints":"3.664.0","@aws-sdk/util-user-agent-browser":"3.664.0","@aws-sdk/util-user-agent-node":"3.664.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.7","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.22","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.3.6","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.22","@smithy/util-defaults-mode-node":"^3.0.22","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2","uuid":"^9.0.1"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","@types/uuid":"^9.0.4","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-codepipeline","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-codepipeline"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-codepipeline","description":"AWS SDK for JavaScript Codepipeline Client for Node.js, Browser and React Native","version":"3.670.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-codepipeline","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo codepipeline"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/client-sso-oidc":"3.670.0","@aws-sdk/client-sts":"3.670.0","@aws-sdk/core":"3.667.0","@aws-sdk/credential-provider-node":"3.670.0","@aws-sdk/middleware-host-header":"3.667.0","@aws-sdk/middleware-logger":"3.667.0","@aws-sdk/middleware-recursion-detection":"3.667.0","@aws-sdk/middleware-user-agent":"3.669.0","@aws-sdk/region-config-resolver":"3.667.0","@aws-sdk/types":"3.667.0","@aws-sdk/util-endpoints":"3.667.0","@aws-sdk/util-user-agent-browser":"3.670.0","@aws-sdk/util-user-agent-node":"3.669.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.8","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.23","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.4.0","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.23","@smithy/util-defaults-mode-node":"^3.0.23","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2","uuid":"^9.0.1"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","@types/uuid":"^9.0.4","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-codepipeline","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-codepipeline"}}');
 
 /***/ }),
 
@@ -26969,7 +26400,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-codepipeline"
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sso-oidc","description":"AWS SDK for JavaScript Sso Oidc Client for Node.js, Browser and React Native","version":"3.665.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sso-oidc","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sso-oidc"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/core":"3.665.0","@aws-sdk/credential-provider-node":"3.665.0","@aws-sdk/middleware-host-header":"3.664.0","@aws-sdk/middleware-logger":"3.664.0","@aws-sdk/middleware-recursion-detection":"3.664.0","@aws-sdk/middleware-user-agent":"3.664.0","@aws-sdk/region-config-resolver":"3.664.0","@aws-sdk/types":"3.664.0","@aws-sdk/util-endpoints":"3.664.0","@aws-sdk/util-user-agent-browser":"3.664.0","@aws-sdk/util-user-agent-node":"3.664.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.7","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.22","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.3.6","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.22","@smithy/util-defaults-mode-node":"^3.0.22","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","peerDependencies":{"@aws-sdk/client-sts":"^3.665.0"},"browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso-oidc","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sso-oidc"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sso-oidc","description":"AWS SDK for JavaScript Sso Oidc Client for Node.js, Browser and React Native","version":"3.670.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sso-oidc","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sso-oidc"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/core":"3.667.0","@aws-sdk/credential-provider-node":"3.670.0","@aws-sdk/middleware-host-header":"3.667.0","@aws-sdk/middleware-logger":"3.667.0","@aws-sdk/middleware-recursion-detection":"3.667.0","@aws-sdk/middleware-user-agent":"3.669.0","@aws-sdk/region-config-resolver":"3.667.0","@aws-sdk/types":"3.667.0","@aws-sdk/util-endpoints":"3.667.0","@aws-sdk/util-user-agent-browser":"3.670.0","@aws-sdk/util-user-agent-node":"3.669.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.8","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.23","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.4.0","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.23","@smithy/util-defaults-mode-node":"^3.0.23","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","peerDependencies":{"@aws-sdk/client-sts":"^3.670.0"},"browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso-oidc","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sso-oidc"}}');
 
 /***/ }),
 
@@ -26977,7 +26408,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sso-oidc","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sso","description":"AWS SDK for JavaScript Sso Client for Node.js, Browser and React Native","version":"3.665.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sso","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sso"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/core":"3.665.0","@aws-sdk/middleware-host-header":"3.664.0","@aws-sdk/middleware-logger":"3.664.0","@aws-sdk/middleware-recursion-detection":"3.664.0","@aws-sdk/middleware-user-agent":"3.664.0","@aws-sdk/region-config-resolver":"3.664.0","@aws-sdk/types":"3.664.0","@aws-sdk/util-endpoints":"3.664.0","@aws-sdk/util-user-agent-browser":"3.664.0","@aws-sdk/util-user-agent-node":"3.664.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.7","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.22","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.3.6","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.22","@smithy/util-defaults-mode-node":"^3.0.22","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sso"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sso","description":"AWS SDK for JavaScript Sso Client for Node.js, Browser and React Native","version":"3.670.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sso","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sso"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/core":"3.667.0","@aws-sdk/middleware-host-header":"3.667.0","@aws-sdk/middleware-logger":"3.667.0","@aws-sdk/middleware-recursion-detection":"3.667.0","@aws-sdk/middleware-user-agent":"3.669.0","@aws-sdk/region-config-resolver":"3.667.0","@aws-sdk/types":"3.667.0","@aws-sdk/util-endpoints":"3.667.0","@aws-sdk/util-user-agent-browser":"3.670.0","@aws-sdk/util-user-agent-node":"3.669.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.8","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.23","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.4.0","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.23","@smithy/util-defaults-mode-node":"^3.0.23","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sso"}}');
 
 /***/ }),
 
@@ -26985,7 +26416,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sso","descrip
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sts","description":"AWS SDK for JavaScript Sts Client for Node.js, Browser and React Native","version":"3.665.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sts","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"rimraf ./dist-types tsconfig.types.tsbuildinfo && tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sts","test":"yarn test:unit","test:unit":"jest"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/client-sso-oidc":"3.665.0","@aws-sdk/core":"3.665.0","@aws-sdk/credential-provider-node":"3.665.0","@aws-sdk/middleware-host-header":"3.664.0","@aws-sdk/middleware-logger":"3.664.0","@aws-sdk/middleware-recursion-detection":"3.664.0","@aws-sdk/middleware-user-agent":"3.664.0","@aws-sdk/region-config-resolver":"3.664.0","@aws-sdk/types":"3.664.0","@aws-sdk/util-endpoints":"3.664.0","@aws-sdk/util-user-agent-browser":"3.664.0","@aws-sdk/util-user-agent-node":"3.664.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.7","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.22","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.3.6","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.22","@smithy/util-defaults-mode-node":"^3.0.22","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sts","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sts"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-sts","description":"AWS SDK for JavaScript Sts Client for Node.js, Browser and React Native","version":"3.670.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-sts","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"rimraf ./dist-types tsconfig.types.tsbuildinfo && tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo sts","test":"yarn test:unit","test:unit":"jest"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/client-sso-oidc":"3.670.0","@aws-sdk/core":"3.667.0","@aws-sdk/credential-provider-node":"3.670.0","@aws-sdk/middleware-host-header":"3.667.0","@aws-sdk/middleware-logger":"3.667.0","@aws-sdk/middleware-recursion-detection":"3.667.0","@aws-sdk/middleware-user-agent":"3.669.0","@aws-sdk/region-config-resolver":"3.667.0","@aws-sdk/types":"3.667.0","@aws-sdk/util-endpoints":"3.667.0","@aws-sdk/util-user-agent-browser":"3.670.0","@aws-sdk/util-user-agent-node":"3.669.0","@smithy/config-resolver":"^3.0.9","@smithy/core":"^2.4.8","@smithy/fetch-http-handler":"^3.2.9","@smithy/hash-node":"^3.0.7","@smithy/invalid-dependency":"^3.0.7","@smithy/middleware-content-length":"^3.0.9","@smithy/middleware-endpoint":"^3.1.4","@smithy/middleware-retry":"^3.0.23","@smithy/middleware-serde":"^3.0.7","@smithy/middleware-stack":"^3.0.7","@smithy/node-config-provider":"^3.1.8","@smithy/node-http-handler":"^3.2.4","@smithy/protocol-http":"^4.1.4","@smithy/smithy-client":"^3.4.0","@smithy/types":"^3.5.0","@smithy/url-parser":"^3.0.7","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.23","@smithy/util-defaults-mode-node":"^3.0.23","@smithy/util-endpoints":"^2.1.3","@smithy/util-middleware":"^3.0.7","@smithy/util-retry":"^3.0.7","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@tsconfig/node16":"16.1.3","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sts","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-sts"}}');
 
 /***/ })
 
